@@ -211,10 +211,48 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 6
     end
   end
+  object pnDatas: TPanel
+    Left = -15
+    Top = -45
+    Width = 441
+    Height = 353
+    TabOrder = 3
+    object lblPesquisarDatas: TLabel
+      Left = 23
+      Top = 191
+      Width = 110
+      Height = 13
+      Caption = 'Referencia da consulta'
+    end
+    object btnPesquisarDatas: TButton
+      Left = 303
+      Top = 186
+      Width = 75
+      Height = 25
+      Caption = 'Pesquisar'
+      Enabled = False
+      TabOrder = 0
+    end
+    object btnResetarDatas: TButton
+      Left = 304
+      Top = 303
+      Width = 75
+      Height = 25
+      Caption = 'Resetar'
+      TabOrder = 1
+    end
+    object DBLookupComboBox1: TDBLookupComboBox
+      Left = 139
+      Top = 187
+      Width = 145
+      Height = 21
+      TabOrder = 2
+    end
+  end
   object RESTClient1: TRESTClient
-    Accept = 'https://parallelum.com.br/fipe/api/v1'
+    Accept = 'http://veiculos.fipe.org.br/api/veiculos'
     AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'https://parallelum.com.br/fipe/api/v1'
+    BaseURL = 'http://veiculos.fipe.org.br/api/veiculos'
     ContentType = 'ctAPPLICATION_JSON'
     Params = <>
     RaiseExceptionOn500 = False
@@ -223,6 +261,7 @@ object frmPrincipal: TfrmPrincipal
   end
   object RESTRequest1: TRESTRequest
     Client = RESTClient1
+    Method = rmPOST
     Params = <>
     Response = RESTResponse1
     SynchronizedEvents = False

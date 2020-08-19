@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Data.DB, REST.Types,
   REST.Client, Data.Bind.Components, Data.Bind.ObjectScope, Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, Datasnap.DBClient, REST.Response.Adapter, System.JSON;
+  Vcl.DBGrids, Vcl.StdCtrls, Datasnap.DBClient, REST.Response.Adapter, System.JSON,
+  Vcl.DBCtrls;
 
 type
   TfrmPrincipal = class(TForm)
@@ -34,6 +35,11 @@ type
     btnPesquisarMarcas: TButton;
     lblEditMarcas: TLabel;
     btnResetar: TButton;
+    pnDatas: TPanel;
+    lblPesquisarDatas: TLabel;
+    btnPesquisarDatas: TButton;
+    btnResetarDatas: TButton;
+    DBLookupComboBox1: TDBLookupComboBox;
     procedure btnMotosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
@@ -55,11 +61,11 @@ implementation
 
 procedure TfrmPrincipal.btnMotosClick(Sender: TObject);
 begin
-  RESTRequest1.Resource := 'motos/marcas';
+  RESTRequest1.Resource := 'ConsultarTabelaDeReferencia';
   RESTRequest1.execute;
   jValue := RESTResponse1.JSONValue;
   converterJsonParaDataset(ClientDataSet1,jValue.ToString);
-  dbgMarcas.Columns[0].FieldName := 'nome';
+
 end;
 
 procedure TfrmPrincipal.btnCaminhoesClick(Sender: TObject);
@@ -109,6 +115,12 @@ begin
   RESTRequest1.Params.Add;
   RESTRequest1.Params[0].ContentType:=ctAPPLICATION_JSON;
   RESTRequest1.Params[0].Kind  := pkGETorPOST;
+  RESTRequest1.Resource := 'ConsultarTabelaDeReferencia';
+  RESTRequest1.execute;
+  jValue := RESTResponse1.JSONValue;
+  converterJsonParaDataset(ClientDataSet1,jValue.ToString);
+  ClientDataSet1.FieldByName.Text := 'Mes';
+  DBLookupComboBox1.DataField:= ClientDataSet1.FieldByName.Text;
 end;
 
 end.
