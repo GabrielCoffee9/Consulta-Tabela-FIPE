@@ -45,6 +45,8 @@ type
     procedure btnCarrosClick(Sender: TObject);
     procedure converterJsonParaDataset(aDataset : TDataSet; aJSON : string);
     procedure btnCaminhoesClick(Sender: TObject);
+    procedure limparRequests;
+    procedure btnResetarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,6 +56,8 @@ type
 var
   frmPrincipal: TfrmPrincipal;
   jValue:TJSONValue;
+  valorDoBody: string;
+  codigoDeReferencia, tipoDoVeiculo : string;
 
 implementation
 
@@ -61,29 +65,77 @@ implementation
 
 procedure TfrmPrincipal.btnMotosClick(Sender: TObject);
 begin
-  RESTRequest1.Resource := 'ConsultarTabelaDeReferencia';
-  RESTRequest1.execute;
+  limparRequests; //limpar Resquests
+
+  RESTRequest1.Resource := 'ConsultarMarcas';       //Parametros
+  codigoDeReferencia := '231';
+  tipoDoVeiculo:= '2';
+  valorDoBody := '{'+
+  '"codigoTabelaReferencia": '+codigoDeReferencia+','
+  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
+'}';
+  RESTRequest1.Body.Add(valorDoBody);
+  RESTResponse1.ContentType := 'application/json';
+  RESTRequest1.execute;       //Executar
+
   jValue := RESTResponse1.JSONValue;
+  ShowMessage (jValue.ToString);
+
   converterJsonParaDataset(ClientDataSet1,jValue.ToString);
 
+  ClientDataSet1.Active;
+  dbgMarcas.Columns[0].FieldName := 'Label';
+end;
+
+procedure TfrmPrincipal.btnResetarClick(Sender: TObject);
+begin
+//http://veiculos.fipe.org.br/api/veiculos/ConsultarModelos
 end;
 
 procedure TfrmPrincipal.btnCaminhoesClick(Sender: TObject);
 begin
-  RESTRequest1.Resource := 'caminhoes/marcas';
+  limparRequests;
+  RESTRequest1.Resource := 'ConsultarMarcas';
+
+  tipoDoVeiculo:= '3';
+  codigoDeReferencia := '231';
+
+  valorDoBody := '{'+
+  '"codigoTabelaReferencia": '+codigoDeReferencia+','
+  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
+'}';
+  RESTRequest1.Body.Add(valorDoBody);
+  RESTResponse1.ContentType := 'application/json';
   RESTRequest1.execute;
   jValue := RESTResponse1.JSONValue;
+  ShowMessage (jValue.ToString);
   converterJsonParaDataset(ClientDataSet1,jValue.ToString);
-  dbgMarcas.Columns[0].FieldName := 'nome';
+
+  ClientDataSet1.Active;
+  dbgMarcas.Columns[0].FieldName := 'Label';
 end;
 
 procedure TfrmPrincipal.btnCarrosClick(Sender: TObject);
 begin
-  RESTRequest1.Resource := 'carros/marcas';
+  limparRequests;
+
+  RESTRequest1.Resource := 'ConsultarMarcas';
+
+  tipoDoVeiculo:= '1';
+  codigoDeReferencia := '231';
+  valorDoBody := '{'+
+  '"codigoTabelaReferencia": '+codigoDeReferencia+','
+  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
+'}';
+
+  RESTRequest1.Body.Add(valorDoBody);
+  RESTResponse1.ContentType := 'application/json';
   RESTRequest1.execute;
   jValue := RESTResponse1.JSONValue;
   converterJsonParaDataset(ClientDataSet1,jValue.ToString);
-  dbgMarcas.Columns[0].FieldName := 'nome';
+
+  ClientDataSet1.Active;
+  dbgMarcas.Columns[0].FieldName := 'Label';
 end;
 
 procedure TfrmPrincipal.converterJsonParaDataset(aDataset: TDataSet;
@@ -115,12 +167,26 @@ begin
   RESTRequest1.Params.Add;
   RESTRequest1.Params[0].ContentType:=ctAPPLICATION_JSON;
   RESTRequest1.Params[0].Kind  := pkGETorPOST;
-  RESTRequest1.Resource := 'ConsultarTabelaDeReferencia';
-  RESTRequest1.execute;
-  jValue := RESTResponse1.JSONValue;
-  converterJsonParaDataset(ClientDataSet1,jValue.ToString);
-  ClientDataSet1.FieldByName.Text := 'Mes';
-  DBLookupComboBox1.DataField:= ClientDataSet1.FieldByName.Text;
+//  RESTRequest1.Resource := 'ConsultarTabelaDeReferencia';
+//  RESTRequest1.execute;
+//  jValue := RESTResponse1.JSONValue;
+//  converterJsonParaDataset(ClientDataSet1,jValue.ToString);
+//  DBLookupComboBox1.Field.Name := 'Mes';
+end;
+
+procedure TfrmPrincipal.limparRequests;
+begin
+  RESTRequest1.Response.FullRequestURI;
+  RESTRequest1.Body.ClearBody;
+  RESTRequest1.Resource.Empty;
+  RESTClient1.BaseURL:= 'http://veiculos.fipe.org.br/api/veiculos';
+  ClientDataSet1.FieldDefs.Clear;
+  ClientDataSet1.Fields.Clear;
+  dbgMarcas.Columns.Clear;
+//  Jvalue.Free;
+
+  RESTResponse1.Content.Empty;
+  RESTResponse1.ContentType := '';
 end;
 
 end.

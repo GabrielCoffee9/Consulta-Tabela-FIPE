@@ -14,6 +14,45 @@ object frmPrincipal: TfrmPrincipal
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object pnDatas: TPanel
+    Left = -15
+    Top = -45
+    Width = 441
+    Height = 353
+    TabOrder = 3
+    object lblPesquisarDatas: TLabel
+      Left = 23
+      Top = 191
+      Width = 110
+      Height = 13
+      Caption = 'Referencia da consulta'
+    end
+    object btnPesquisarDatas: TButton
+      Left = 303
+      Top = 186
+      Width = 75
+      Height = 25
+      Caption = 'Pesquisar'
+      Enabled = False
+      TabOrder = 0
+    end
+    object btnResetarDatas: TButton
+      Left = 304
+      Top = 303
+      Width = 75
+      Height = 25
+      Caption = 'Resetar'
+      TabOrder = 1
+    end
+    object DBLookupComboBox1: TDBLookupComboBox
+      Left = 139
+      Top = 187
+      Width = 145
+      Height = 21
+      DataSource = DataSource1
+      TabOrder = 2
+    end
+  end
   object pnModelos: TPanel
     Left = -22
     Top = -45
@@ -125,7 +164,7 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object pnMarcas: TPanel
-    Left = -16
+    Left = -8
     Top = -24
     Width = 441
     Height = 353
@@ -209,44 +248,7 @@ object frmPrincipal: TfrmPrincipal
       Height = 25
       Caption = 'Resetar'
       TabOrder = 6
-    end
-  end
-  object pnDatas: TPanel
-    Left = -15
-    Top = -45
-    Width = 441
-    Height = 353
-    TabOrder = 3
-    object lblPesquisarDatas: TLabel
-      Left = 23
-      Top = 191
-      Width = 110
-      Height = 13
-      Caption = 'Referencia da consulta'
-    end
-    object btnPesquisarDatas: TButton
-      Left = 303
-      Top = 186
-      Width = 75
-      Height = 25
-      Caption = 'Pesquisar'
-      Enabled = False
-      TabOrder = 0
-    end
-    object btnResetarDatas: TButton
-      Left = 304
-      Top = 303
-      Width = 75
-      Height = 25
-      Caption = 'Resetar'
-      TabOrder = 1
-    end
-    object DBLookupComboBox1: TDBLookupComboBox
-      Left = 139
-      Top = 187
-      Width = 145
-      Height = 21
-      TabOrder = 2
+      OnClick = btnResetarClick
     end
   end
   object RESTClient1: TRESTClient
