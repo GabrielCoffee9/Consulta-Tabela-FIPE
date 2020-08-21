@@ -1,7 +1,7 @@
-object frmPrincipal: TfrmPrincipal
+object frmConsultas: TfrmConsultas
   Left = 0
   Top = 0
-  Caption = 'frmPrincipal'
+  Caption = 'frmConsultas'
   ClientHeight = 310
   ClientWidth = 370
   Color = clBtnFace
@@ -11,79 +11,21 @@ object frmPrincipal: TfrmPrincipal
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = FormCreate
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object pnDatas: TPanel
-    Left = -15
-    Top = -45
-    Width = 441
-    Height = 353
-    TabOrder = 3
-    object lblPesquisarDatas: TLabel
-      Left = 23
-      Top = 191
-      Width = 110
-      Height = 13
-      Caption = 'Referencia da consulta'
-    end
-    object btnPesquisarDatas: TButton
-      Left = 303
-      Top = 186
-      Width = 75
-      Height = 25
-      Caption = 'Pesquisar'
-      Enabled = False
-      TabOrder = 0
-    end
-    object btnResetarDatas: TButton
-      Left = 304
-      Top = 303
-      Width = 75
-      Height = 25
-      Caption = 'Resetar'
-      TabOrder = 1
-    end
-    object DBLookupComboBox1: TDBLookupComboBox
-      Left = 139
-      Top = 187
-      Width = 145
-      Height = 21
-      DataSource = DataSource1
-      TabOrder = 2
-    end
-  end
   object pnModelos: TPanel
     Left = -22
     Top = -45
     Width = 441
     Height = 353
     TabOrder = 2
-    object Button1: TButton
-      Left = 64
-      Top = 57
-      Width = 75
-      Height = 25
-      Caption = 'Motos'
-      TabOrder = 0
-      OnClick = btnMotosClick
-    end
-    object Button2: TButton
-      Left = 177
-      Top = 57
-      Width = 75
-      Height = 25
-      Caption = 'Carros'
-      TabOrder = 1
-      OnClick = btnCarrosClick
-    end
     object dbgModelos: TDBGrid
       Left = 24
       Top = 128
       Width = 320
       Height = 169
-      DataSource = DataSource1
-      TabOrder = 2
+      TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
@@ -97,15 +39,6 @@ object frmPrincipal: TfrmPrincipal
           Width = 107
           Visible = True
         end>
-    end
-    object Button3: TButton
-      Left = 289
-      Top = 57
-      Width = 75
-      Height = 25
-      Caption = 'Caminh'#227'o'
-      TabOrder = 3
-      OnClick = btnCaminhoesClick
     end
   end
   object pnAnos: TPanel
@@ -114,31 +47,12 @@ object frmPrincipal: TfrmPrincipal
     Width = 441
     Height = 353
     TabOrder = 1
-    object Button4: TButton
-      Left = 64
-      Top = 57
-      Width = 75
-      Height = 25
-      Caption = 'Motos'
-      TabOrder = 0
-      OnClick = btnMotosClick
-    end
-    object Button5: TButton
-      Left = 177
-      Top = 57
-      Width = 75
-      Height = 25
-      Caption = 'Carros'
-      TabOrder = 1
-      OnClick = btnCarrosClick
-    end
     object dbgAnos: TDBGrid
       Left = 24
       Top = 128
       Width = 320
       Height = 169
-      DataSource = DataSource1
-      TabOrder = 2
+      TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
@@ -153,18 +67,9 @@ object frmPrincipal: TfrmPrincipal
           Visible = True
         end>
     end
-    object Button6: TButton
-      Left = 289
-      Top = 57
-      Width = 75
-      Height = 25
-      Caption = 'Caminh'#227'o'
-      TabOrder = 3
-      OnClick = btnCaminhoesClick
-    end
   end
   object pnMarcas: TPanel
-    Left = -8
+    Left = -16
     Top = -24
     Width = 441
     Height = 353
@@ -241,25 +146,39 @@ object frmPrincipal: TfrmPrincipal
       Enabled = False
       TabOrder = 5
     end
-    object btnResetar: TButton
-      Left = 304
+    object btnVoltarMarcas: TButton
+      Left = 296
       Top = 303
-      Width = 75
+      Width = 83
       Height = 25
-      Caption = 'Resetar'
+      Caption = 'Voltar as Datas'
       TabOrder = 6
-      OnClick = btnResetarClick
+      OnClick = btnVoltarMarcasClick
     end
   end
+  object DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 217
+    Top = 283
+  end
+  object FDMemTable1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    Left = 152
+    Top = 280
+  end
   object RESTClient1: TRESTClient
-    Accept = 'http://veiculos.fipe.org.br/api/veiculos'
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
     AcceptCharset = 'utf-8, *;q=0.8'
     BaseURL = 'http://veiculos.fipe.org.br/api/veiculos'
-    ContentType = 'ctAPPLICATION_JSON'
     Params = <>
     RaiseExceptionOn500 = False
-    Left = 32
-    Top = 280
+    Left = 16
+    Top = 274
   end
   object RESTRequest1: TRESTRequest
     Client = RESTClient1
@@ -267,23 +186,19 @@ object frmPrincipal: TfrmPrincipal
     Params = <>
     Response = RESTResponse1
     SynchronizedEvents = False
-    Left = 136
+    Left = 56
     Top = 280
   end
   object RESTResponse1: TRESTResponse
-    ContentType = 'application/json'
+    ContentType = 'text/html'
     Left = 88
     Top = 280
   end
-  object ClientDataSet1: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    Left = 176
-    Top = 280
-  end
-  object DataSource1: TDataSource
-    DataSet = ClientDataSet1
-    Left = 216
+  object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
+    Dataset = FDMemTable1
+    FieldDefs = <>
+    Response = RESTResponse1
+    Left = 120
     Top = 280
   end
 end
