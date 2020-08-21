@@ -39,12 +39,9 @@ uses uConsultas;
 
 procedure TfrmDatas.btnPesquisarDatasClick(Sender: TObject);
 begin
-//codigoDeReferencia:= DBLookupComboBox1.ListSource.DataSet.FieldByName('codigo').AsString;
   frmConsultas := TfrmConsultas.Create(self);
   frmConsultas.codigoDeReferencia:= DBLookupComboBox1.ListSource.DataSet.FieldByName('codigo').AsString;
   frmConsultas.ShowModal;
-
-  frmConsultas.pnMarcas.BringToFront;
 end;
 
 procedure TfrmDatas.FormCreate(Sender: TObject);

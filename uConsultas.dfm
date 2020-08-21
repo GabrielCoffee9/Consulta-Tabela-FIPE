@@ -12,35 +12,9 @@ object frmConsultas: TfrmConsultas
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnModelos: TPanel
-    Left = -22
-    Top = -45
-    Width = 441
-    Height = 353
-    TabOrder = 2
-    object dbgModelos: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
-      Height = 169
-      TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 's'
-          Title.Caption = 'Marcas'
-          Width = 107
-          Visible = True
-        end>
-    end
-  end
   object pnAnos: TPanel
     Left = -22
     Top = -45
@@ -105,18 +79,18 @@ object frmConsultas: TfrmConsultas
       Width = 320
       Height = 169
       DataSource = DataSource1
+      ReadOnly = True
       TabOrder = 2
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgMarcasDblClick
       Columns = <
         item
           Expanded = False
-          FieldName = 's'
           Title.Caption = 'Marcas'
-          Width = 107
           Visible = True
         end>
     end
@@ -154,6 +128,55 @@ object frmConsultas: TfrmConsultas
       Caption = 'Voltar as Datas'
       TabOrder = 6
       OnClick = btnVoltarMarcasClick
+    end
+  end
+  object pnModelos: TPanel
+    Left = -22
+    Top = -45
+    Width = 441
+    Height = 353
+    TabOrder = 2
+    object lblEditModelos: TLabel
+      Left = 24
+      Top = 106
+      Width = 92
+      Height = 13
+      Caption = 'Pesquisar Modelos:'
+    end
+    object dbgModelos: TDBGrid
+      Left = 24
+      Top = 128
+      Width = 320
+      Height = 169
+      DataSource = DataSource1
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          Title.Caption = 'Modelos'
+          Visible = True
+        end>
+    end
+    object edtPesquisarModelos: TEdit
+      Left = 122
+      Top = 101
+      Width = 140
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+    end
+    object btnPesquisarModelos: TButton
+      Left = 302
+      Top = 97
+      Width = 83
+      Height = 25
+      Caption = 'Pesquisar'
+      TabOrder = 2
     end
   end
   object DataSource1: TDataSource
@@ -197,7 +220,7 @@ object frmConsultas: TfrmConsultas
   object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
     Dataset = FDMemTable1
     FieldDefs = <>
-    Response = RESTResponse1
+    ResponseJSON = RESTResponse1
     Left = 120
     Top = 280
   end
