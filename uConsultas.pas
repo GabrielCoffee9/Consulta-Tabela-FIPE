@@ -23,7 +23,6 @@ type
     pnAnos: TPanel;
     dbgAnos: TDBGrid;
     edtPesquisarMarcas: TEdit;
-    btnPesquisarMarcas: TButton;
     lblEditMarcas: TLabel;
     btnVoltarMarcas: TButton;
     DataSource1: TDataSource;
@@ -34,7 +33,6 @@ type
     RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter;
     edtPesquisarModelos: TEdit;
     lblEditModelos: TLabel;
-    btnPesquisarModelos: TButton;
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
     procedure btnCaminhoesClick(Sender: TObject);
@@ -42,6 +40,8 @@ type
     procedure btnVoltarMarcasClick(Sender: TObject);
     procedure dbgMarcasDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure edtPesquisarMarcasChange(Sender: TObject);
+    procedure edtPesquisarModelosChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -70,8 +70,9 @@ begin
   RESTRequest1.execute;   //         Executar
   RESTResponseDataSetAdapter1.Active;
 
-  dbgModelos.Columns[0].FieldName := 'Label';
-  dbgMarcas.Columns[0].Title.Caption := 'Marcas';
+  dbgModelos.Columns[0].FieldName     := 'Label';
+  dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
+  edtPesquisarMarcas.Enabled          := True;
 end;
 
 procedure TfrmConsultas.btnVoltarMarcasClick(Sender: TObject);
@@ -101,6 +102,16 @@ begin
   dbgModelos.Columns[0].Title.Caption := 'Modelos';
 end;
 
+procedure TfrmConsultas.edtPesquisarMarcasChange(Sender: TObject);
+begin
+dbgMarcas.DataSource.DataSet.Locate('Label',edtPesquisarMarcas.Text,[ LoPartialKey]);
+end;
+
+procedure TfrmConsultas.edtPesquisarModelosChange(Sender: TObject);
+begin
+dbgMarcas.DataSource.DataSet.Locate('Label',edtPesquisarModelos.Text,[ LoPartialKey]);
+end;
+
 procedure TfrmConsultas.FormCreate(Sender: TObject);
 begin
   pnMarcas.BringToFront;
@@ -120,8 +131,9 @@ begin
   RESTResponse1.ContentType       := 'application/json';
   RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
-  dbgMarcas.Columns[0].FieldName  := 'Label';
-  dbgMarcas.Columns[0].Title.Caption := 'Marcas';
+  dbgMarcas.Columns[0].FieldName      := 'Label';
+  dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
+  edtPesquisarMarcas.Enabled          := True;
 end;
 
 procedure TfrmConsultas.btnCarrosClick(Sender: TObject);
@@ -139,10 +151,10 @@ begin
   RESTResponse1.ContentType         := 'application/json';
   RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
-  dbgMarcas.Columns[0].FieldName    := 'Label';
-  dbgMarcas.Columns[0].Title.Caption := 'Marcas';
+  dbgMarcas.Columns[0].FieldName      := 'Label';
+  dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
+  edtPesquisarMarcas.Enabled          := True;
 end;
-
 
 procedure TfrmConsultas.limparRequests;
 begin
