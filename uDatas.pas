@@ -54,6 +54,7 @@ begin
   RESTRequest2.execute;
   RESTResponseDataSetAdapter2.Active;
   DBLookupComboBox1.KeyField        := 'Mes';
+  DBLookupComboBox1.ListFieldIndex := 1;
 end;
 
 end.

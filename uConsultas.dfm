@@ -66,6 +66,15 @@ object frmConsultas: TfrmConsultas
       TabOrder = 2
       OnClick = btnVoltarMarcasClick
     end
+    object Memo1: TMemo
+      Left = 216
+      Top = 248
+      Width = 185
+      Height = 89
+      Lines.Strings = (
+        'Memo1')
+      TabOrder = 3
+    end
   end
   object pnAnos: TPanel
     Left = -22
@@ -181,12 +190,15 @@ object frmConsultas: TfrmConsultas
     Top = 283
   end
   object FDMemTable1: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
     ResourceOptions.SilentMode = True
     UpdateOptions.AssignedValues = [uvCheckRequired]
     UpdateOptions.CheckRequired = False
+    StoreDefs = True
     Left = 152
     Top = 280
   end

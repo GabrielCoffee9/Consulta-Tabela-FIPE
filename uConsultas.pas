@@ -34,6 +34,7 @@ type
     edtPesquisarModelos: TEdit;
     lblEditModelos: TLabel;
     btnVoltarModelos: TButton;
+    Memo1: TMemo;
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
     procedure btnCaminhoesClick(Sender: TObject);
@@ -93,12 +94,12 @@ end;
 
 procedure TfrmConsultas.edtPesquisarMarcasChange(Sender: TObject);
 begin
-dbgMarcas.DataSource.DataSet.Locate('Label',edtPesquisarMarcas.Text,[ LoPartialKey]);
+  dbgMarcas.DataSource.DataSet.Locate('Label',edtPesquisarMarcas.Text,[ LoPartialKey]);
 end;
 
 procedure TfrmConsultas.edtPesquisarModelosChange(Sender: TObject);
 begin
-dbgMarcas.DataSource.DataSet.Locate('Label',edtPesquisarModelos.Text,[ LoPartialKey]);
+  dbgMarcas.DataSource.DataSet.Locate('Label',edtPesquisarModelos.Text,[ LoPartialKey]);
 end;
 
 procedure TfrmConsultas.FormCreate(Sender: TObject);
@@ -149,6 +150,7 @@ procedure TfrmConsultas.transicaoParaPanelModelos;
 var
 contentTemp: string;
 tamanho: integer;
+nPosi: byte;
 begin
 
   RESTResponseDataSetAdapter1.ClearDataSet;
@@ -160,14 +162,17 @@ begin
   ',"codigoMarca": '+codigoMarca+'}';
   RESTRequest1.Body.Add(valorDoBody);
   RESTResponse1.ContentType       := 'application/json';
-//  RESTResponse1.Content.Empty;
+  RESTResponse1.Content.Empty;
   RESTRequest1.execute;
-//  StringReplace(RESTResponse1.Content, '"Modelos":', '', [rfIgnoreCase, rfReplaceAll]);
+  //  StringReplace(RESTResponse1.Content, '"Modelos":', '', [rfIgnoreCase, rfReplaceAll]);
   contentTemp := RESTResponse1.Content;
   delete(contentTemp,1,11);
+  nPosi := Pos(', "Anos',contentTemp);
+  //  ShowMessage(nPosi.ToString);
   tamanho:= length(contentTemp);
-  contentTemp := copy(contentTemp,1,tamanho-1);
-  ShowMessage(contentTemp);
+  delete(contentTemp,nPosi,tamanho);                                      //here
+//  contentTemp := copy(contentTemp,1,tamanho-1);
+    ShowMessage(contentTemp);
   RESTResponse1.Content.Empty;
   RESTResponse1.Content.Replace(RESTResponse1.Content,contentTemp);
   ShowMessage(RESTResponse1.Content);
