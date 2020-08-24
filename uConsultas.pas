@@ -33,6 +33,7 @@ type
     RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter;
     edtPesquisarModelos: TEdit;
     lblEditModelos: TLabel;
+    btnVoltarModelos: TButton;
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
     procedure btnCaminhoesClick(Sender: TObject);
@@ -42,6 +43,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure edtPesquisarMarcasChange(Sender: TObject);
     procedure edtPesquisarModelosChange(Sender: TObject);
+    procedure transicaoParaPanelModelos;
+    procedure replaceDoContentModelos;
   private
     { Private declarations }
   public
@@ -84,22 +87,8 @@ procedure TfrmConsultas.dbgMarcasDblClick(Sender: TObject);
 begin
   codigoMarca := dbgMarcas.DataSource.DataSet.FieldByName('Value').AsString;
   pnModelos.BringToFront;
-  RESTResponseDataSetAdapter1.ClearDataSet;
-  limparRequests;
-  RESTRequest1.Resource           := 'ConsultarModelos';
-  tipoDoVeiculo                   := '3';
-  valorDoBody                     :=
-  '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
-  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
-  ',"codigoMarca": '+codigoMarca+'}';
-  RESTRequest1.Body.Add(valorDoBody);
-  RESTResponse1.ContentType       := 'application/json';
-  RESTResponse1.Content.Empty;
-  RESTRequest1.execute;
-  StringReplace(RESTResponse1.Content, '"Modelos":', '', [rfIgnoreCase, rfReplaceAll]);
-  RESTResponseDataSetAdapter1.Active;
-  dbgMarcas.Columns[0].FieldName  := 'Label';
-  dbgModelos.Columns[0].Title.Caption := 'Modelos';
+
+  transicaoParaPanelModelos;
 end;
 
 procedure TfrmConsultas.edtPesquisarMarcasChange(Sender: TObject);
@@ -156,11 +145,50 @@ begin
   edtPesquisarMarcas.Enabled          := True;
 end;
 
+procedure TfrmConsultas.transicaoParaPanelModelos;
+var
+contentTemp: string;
+tamanho: integer;
+begin
+
+  RESTResponseDataSetAdapter1.ClearDataSet;
+  limparRequests;
+  RESTRequest1.Resource           := 'ConsultarModelos';
+  valorDoBody                     :=
+  '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
+  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
+  ',"codigoMarca": '+codigoMarca+'}';
+  RESTRequest1.Body.Add(valorDoBody);
+  RESTResponse1.ContentType       := 'application/json';
+//  RESTResponse1.Content.Empty;
+  RESTRequest1.execute;
+//  StringReplace(RESTResponse1.Content, '"Modelos":', '', [rfIgnoreCase, rfReplaceAll]);
+  contentTemp := RESTResponse1.Content;
+  delete(contentTemp,1,11);
+  tamanho:= length(contentTemp);
+  contentTemp := copy(contentTemp,1,tamanho-1);
+  ShowMessage(contentTemp);
+  RESTResponse1.Content.Empty;
+  RESTResponse1.Content.Replace(RESTResponse1.Content,contentTemp);
+  ShowMessage(RESTResponse1.Content);
+  RESTResponseDataSetAdapter1.Active;
+  dbgMarcas.Columns[0].FieldName  := 'Label';
+  dbgModelos.Columns[0].Title.Caption := 'Modelos';
+
+end;
+
+procedure TfrmConsultas.replaceDoContentModelos;
+begin
+//  aaa
+end;
+
 procedure TfrmConsultas.limparRequests;
 begin
   RESTClient1.BaseURL := 'http://veiculos.fipe.org.br/api/veiculos';
+
   dbgMarcas.Columns.Clear;
   dbgModelos.Columns.Clear;
+
   RESTResponse1.Content.Empty;
   RESTRequest1.Body.ClearBody;
   RESTResponseDataSetAdapter1.ClearDataSet;

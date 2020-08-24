@@ -34,6 +34,7 @@ object frmConsultas: TfrmConsultas
       Width = 320
       Height = 169
       DataSource = DataSource1
+      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -56,6 +57,15 @@ object frmConsultas: TfrmConsultas
       TabOrder = 1
       OnChange = edtPesquisarModelosChange
     end
+    object btnVoltarModelos: TButton
+      Left = 289
+      Top = 311
+      Width = 98
+      Height = 25
+      Caption = 'Voltar para Datas'
+      TabOrder = 2
+      OnClick = btnVoltarMarcasClick
+    end
   end
   object pnAnos: TPanel
     Left = -22
@@ -68,6 +78,7 @@ object frmConsultas: TfrmConsultas
       Top = 128
       Width = 320
       Height = 169
+      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -155,11 +166,11 @@ object frmConsultas: TfrmConsultas
       OnChange = edtPesquisarMarcasChange
     end
     object btnVoltarMarcas: TButton
-      Left = 296
+      Left = 283
       Top = 303
-      Width = 83
+      Width = 96
       Height = 25
-      Caption = 'Voltar as Datas'
+      Caption = 'Voltar para Datas'
       TabOrder = 5
       OnClick = btnVoltarMarcasClick
     end
