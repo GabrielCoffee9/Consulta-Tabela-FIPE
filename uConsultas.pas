@@ -34,7 +34,8 @@ type
     edtPesquisarModelos: TEdit;
     lblEditModelos: TLabel;
     btnVoltarModelos: TButton;
-    Memo1: TMemo;
+    ClientDataSetContent: TClientDataSet;
+    DataSourceContent: TDataSource;
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
     procedure btnCaminhoesClick(Sender: TObject);
@@ -46,6 +47,7 @@ type
     procedure edtPesquisarModelosChange(Sender: TObject);
     procedure transicaoParaPanelModelos;
     procedure replaceDoContentModelos;
+    procedure converterJsonParaDataset(aDataset: TDataSet; aJSON: string);
   private
     { Private declarations }
   public
@@ -55,6 +57,7 @@ type
 var
   frmConsultas:TfrmConsultas;
   valorDoBody, tipoDoVeiculo,codigoMarca:string;
+    jValue:TJSONValue;
 
 implementation
 
@@ -76,6 +79,8 @@ begin
 
   dbgModelos.Columns[0].FieldName     := 'Label';
   dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
+  dbgMarcas.Columns[1].FieldName := 'Value';
+  dbgMarcas.Columns[1].Visible := False;
   edtPesquisarMarcas.Enabled          := True;
 end;
 
@@ -123,6 +128,8 @@ begin
   RESTResponseDataSetAdapter1.Active;
   dbgMarcas.Columns[0].FieldName      := 'Label';
   dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
+  dbgMarcas.Columns[1].FieldName      := 'Value';
+  dbgMarcas.Columns[1].Visible        := False;
   edtPesquisarMarcas.Enabled          := True;
 end;
 
@@ -143,17 +150,18 @@ begin
   RESTResponseDataSetAdapter1.Active;
   dbgMarcas.Columns[0].FieldName      := 'Label';
   dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
+  dbgMarcas.Columns[1].FieldName      := 'Value';
+  dbgMarcas.Columns[1].Visible        := False;
   edtPesquisarMarcas.Enabled          := True;
+
 end;
 
 procedure TfrmConsultas.transicaoParaPanelModelos;
 var
-contentTemp: string;
+contentTemp, s: string;
 tamanho: integer;
 nPosi: byte;
 begin
-
-  RESTResponseDataSetAdapter1.ClearDataSet;
   limparRequests;
   RESTRequest1.Resource           := 'ConsultarModelos';
   valorDoBody                     :=
@@ -167,19 +175,16 @@ begin
   //  StringReplace(RESTResponse1.Content, '"Modelos":', '', [rfIgnoreCase, rfReplaceAll]);
   contentTemp := RESTResponse1.Content;
   delete(contentTemp,1,11);
-  nPosi := Pos(', "Anos',contentTemp);
-  //  ShowMessage(nPosi.ToString);
+  nPosi := Pos('Anos":',contentTemp);
   tamanho:= length(contentTemp);
-  delete(contentTemp,nPosi,tamanho);                                      //here
-//  contentTemp := copy(contentTemp,1,tamanho-1);
-    ShowMessage(contentTemp);
-  RESTResponse1.Content.Empty;
-  RESTResponse1.Content.Replace(RESTResponse1.Content,contentTemp);
-  ShowMessage(RESTResponse1.Content);
-  RESTResponseDataSetAdapter1.Active;
-  dbgMarcas.Columns[0].FieldName  := 'Label';
+  ShowMessage('nPosi '+nPosi.ToString);
+  delete (contentTemp,nPosi-3,tamanho);
+  ShowMessage('contentTemp '+contentTemp);
+  ShowMessage('Nposi: '+nPosi.ToString);
+  converterJsonParaDataset(ClientDataSetContent,contentTemp);
+  ClientDataSetContent.Active;
+  dbgModelos.Columns[0].FieldName  := 'Label';
   dbgModelos.Columns[0].Title.Caption := 'Modelos';
-
 end;
 
 procedure TfrmConsultas.replaceDoContentModelos;
@@ -204,4 +209,26 @@ begin
 
   end;
 
+  procedure TfrmConsultas.converterJsonParaDataset(aDataset: TDataSet;
+  aJSON: string);
+var
+  jObjeto: TJSONArray;
+  vConverter : TCustomJSONDataSetAdapter;
+begin
+  if (aJSON = EmptyStr) then
+  begin
+    Exit;
+  end;
+
+  jObjeto := TJSONObject.ParseJSONValue(aJSON) as TJSONArray;
+  vConverter := TCustomJSONDataSetAdapter.Create(Nil);
+
+  try
+    vConverter.Dataset := aDataset;
+    vConverter.UpdateDataSet(jObjeto);
+  finally
+    vConverter.Free;
+    jObjeto.Free;
+  end;
+end;
 end.
