@@ -15,34 +15,6 @@ object frmConsultas: TfrmConsultas
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnAnos: TPanel
-    Left = -22
-    Top = -45
-    Width = 441
-    Height = 353
-    TabOrder = 1
-    object dbgAnos: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
-      Height = 169
-      ReadOnly = True
-      TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 's'
-          Title.Caption = 'Marcas'
-          Width = 107
-          Visible = True
-        end>
-    end
-  end
   object pnMarcas: TPanel
     Left = -16
     Top = -24
@@ -153,6 +125,7 @@ object frmConsultas: TfrmConsultas
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgModelosDblClick
       Columns = <
         item
           Expanded = False
@@ -177,6 +150,51 @@ object frmConsultas: TfrmConsultas
       Caption = 'Voltar para Datas'
       TabOrder = 2
       OnClick = btnVoltarMarcasClick
+    end
+  end
+  object pnAnos: TPanel
+    Left = -22
+    Top = -45
+    Width = 441
+    Height = 353
+    TabOrder = 1
+    object lblPesquisarAnos: TLabel
+      Left = 33
+      Top = 98
+      Width = 80
+      Height = 13
+      Caption = 'Pesquisar Anos :'
+    end
+    object dbgAnos: TDBGrid
+      Left = 24
+      Top = 128
+      Width = 320
+      Height = 169
+      DataSource = DataSource1
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          Visible = True
+        end
+        item
+          Expanded = False
+          Visible = True
+        end>
+    end
+    object edtPesquisarAnos: TEdit
+      Left = 119
+      Top = 95
+      Width = 202
+      Height = 21
+      TabOrder = 1
+      OnChange = edtPesquisarAnosChange
     end
   end
   object DataSource1: TDataSource
