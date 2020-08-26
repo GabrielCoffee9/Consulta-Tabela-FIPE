@@ -1,7 +1,7 @@
 object frmConsultas: TfrmConsultas
   Left = 0
   Top = 0
-  Caption = 'frmConsultas'
+  Caption = 'Marcas'
   ClientHeight = 310
   ClientWidth = 370
   Color = clBtnFace
@@ -15,90 +15,6 @@ object frmConsultas: TfrmConsultas
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnMarcas: TPanel
-    Left = -16
-    Top = -24
-    Width = 441
-    Height = 353
-    TabOrder = 0
-    object lblEditMarcas: TLabel
-      Left = 32
-      Top = 104
-      Width = 87
-      Height = 13
-      Caption = 'Pesquisar marcas:'
-    end
-    object btnMotos: TButton
-      Left = 32
-      Top = 49
-      Width = 75
-      Height = 25
-      Caption = 'Motos'
-      TabOrder = 0
-      OnClick = btnMotosClick
-    end
-    object btnCarros: TButton
-      Left = 155
-      Top = 49
-      Width = 75
-      Height = 25
-      Caption = 'Carros'
-      TabOrder = 1
-      OnClick = btnCarrosClick
-    end
-    object dbgMarcas: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
-      Height = 169
-      DataSource = DataSource1
-      ReadOnly = True
-      TabOrder = 2
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      OnDblClick = dbgMarcasDblClick
-      Columns = <
-        item
-          Expanded = False
-          Title.Caption = 'Marcas'
-          Visible = True
-        end
-        item
-          Expanded = False
-          Visible = True
-        end>
-    end
-    object btnCaminhoes: TButton
-      Left = 283
-      Top = 49
-      Width = 75
-      Height = 25
-      Caption = 'Caminh'#245'es'
-      TabOrder = 3
-      OnClick = btnCaminhoesClick
-    end
-    object edtPesquisarMarcas: TEdit
-      Left = 125
-      Top = 101
-      Width = 180
-      Height = 21
-      Enabled = False
-      TabOrder = 4
-      OnChange = edtPesquisarMarcasChange
-    end
-    object btnVoltarMarcas: TButton
-      Left = 283
-      Top = 303
-      Width = 96
-      Height = 25
-      Caption = 'Voltar para Datas'
-      TabOrder = 5
-      OnClick = btnVoltarMarcasClick
-    end
-  end
   object pnModelos: TPanel
     Left = -22
     Top = -45
@@ -107,16 +23,17 @@ object frmConsultas: TfrmConsultas
     TabOrder = 2
     object lblEditModelos: TLabel
       Left = 33
-      Top = 82
+      Top = 106
       Width = 92
       Height = 13
       Caption = 'Pesquisar Modelos:'
     end
     object dbgModelos: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
+      Left = 30
+      Top = 136
+      Width = 348
       Height = 169
+      Cursor = crHandPoint
       DataSource = DataSourceContent
       ReadOnly = True
       TabOrder = 0
@@ -135,9 +52,10 @@ object frmConsultas: TfrmConsultas
     end
     object edtPesquisarModelos: TEdit
       Left = 131
-      Top = 79
+      Top = 103
       Width = 180
       Height = 21
+      Cursor = crIBeam
       Enabled = False
       TabOrder = 1
       OnChange = edtPesquisarModelosChange
@@ -147,6 +65,7 @@ object frmConsultas: TfrmConsultas
       Top = 311
       Width = 98
       Height = 25
+      Cursor = crHandPoint
       Caption = 'Voltar para Datas'
       TabOrder = 2
       OnClick = btnVoltarMarcasClick
@@ -157,19 +76,21 @@ object frmConsultas: TfrmConsultas
     Top = -45
     Width = 441
     Height = 353
+    Cursor = crHandPoint
     TabOrder = 1
     object lblPesquisarAnos: TLabel
       Left = 33
-      Top = 98
+      Top = 109
       Width = 80
       Height = 13
       Caption = 'Pesquisar Anos :'
     end
     object dbgAnos: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
+      Left = 30
+      Top = 141
+      Width = 355
       Height = 169
+      Cursor = crHandPoint
       DataSource = DataSource1
       ReadOnly = True
       TabOrder = 0
@@ -190,17 +111,144 @@ object frmConsultas: TfrmConsultas
     end
     object edtPesquisarAnos: TEdit
       Left = 119
-      Top = 95
+      Top = 106
       Width = 202
       Height = 21
+      Cursor = crIBeam
       TabOrder = 1
       OnChange = edtPesquisarAnosChange
+    end
+    object Button1: TButton
+      Left = 287
+      Top = 324
+      Width = 98
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar para Datas'
+      TabOrder = 2
+      OnClick = btnVoltarMarcasClick
+    end
+  end
+  object pnPrecoFinal: TPanel
+    Left = -31
+    Top = -24
+    Width = 441
+    Height = 353
+    Cursor = crHandPoint
+    TabOrder = 3
+    object memDetalhes: TMemo
+      Left = 63
+      Top = 46
+      Width = 306
+      Height = 251
+      TabOrder = 0
+    end
+    object btnVoltarDetalhes: TButton
+      Left = 271
+      Top = 303
+      Width = 123
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar para Tela inicial'
+      TabOrder = 1
+      OnClick = btnVoltarMarcasClick
+    end
+  end
+  object pnMarcas: TPanel
+    Left = -16
+    Top = -24
+    Width = 441
+    Height = 353
+    TabOrder = 0
+    object lblEditMarcas: TLabel
+      Left = 32
+      Top = 96
+      Width = 87
+      Height = 13
+      Caption = 'Pesquisar marcas:'
+    end
+    object btnMotos: TButton
+      Left = 164
+      Top = 49
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Motos'
+      TabOrder = 0
+      OnClick = btnMotosClick
+    end
+    object btnCarros: TButton
+      Left = 32
+      Top = 49
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Carros'
+      TabOrder = 1
+      OnClick = btnCarrosClick
+    end
+    object dbgMarcas: TDBGrid
+      Left = 24
+      Top = 128
+      Width = 320
+      Height = 169
+      Cursor = crHandPoint
+      DataSource = DataSource1
+      ReadOnly = True
+      TabOrder = 2
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      Visible = False
+      OnDblClick = dbgMarcasDblClick
+      Columns = <
+        item
+          Expanded = False
+          Title.Caption = 'Marcas'
+          Visible = True
+        end
+        item
+          Expanded = False
+          Visible = True
+        end>
+    end
+    object btnCaminhoes: TButton
+      Left = 291
+      Top = 49
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Caminh'#245'es'
+      TabOrder = 3
+      OnClick = btnCaminhoesClick
+    end
+    object edtPesquisarMarcas: TEdit
+      Left = 125
+      Top = 93
+      Width = 180
+      Height = 21
+      Cursor = crIBeam
+      Enabled = False
+      TabOrder = 4
+      OnChange = edtPesquisarMarcasChange
+    end
+    object btnVoltarMarcas: TButton
+      Left = 283
+      Top = 303
+      Width = 96
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar para Datas'
+      TabOrder = 5
+      OnClick = btnVoltarMarcasClick
     end
   end
   object DataSource1: TDataSource
     DataSet = FDMemTable1
     Left = 217
-    Top = 283
+    Top = 267
   end
   object FDMemTable1: TFDMemTable
     FieldDefs = <>
@@ -213,7 +261,7 @@ object frmConsultas: TfrmConsultas
     UpdateOptions.CheckRequired = False
     StoreDefs = True
     Left = 152
-    Top = 280
+    Top = 264
   end
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
@@ -222,7 +270,7 @@ object frmConsultas: TfrmConsultas
     Params = <>
     RaiseExceptionOn500 = False
     Left = 16
-    Top = 274
+    Top = 266
   end
   object RESTRequest1: TRESTRequest
     Client = RESTClient1
@@ -231,29 +279,29 @@ object frmConsultas: TfrmConsultas
     Response = RESTResponse1
     SynchronizedEvents = False
     Left = 56
-    Top = 280
+    Top = 264
   end
   object RESTResponse1: TRESTResponse
     ContentType = 'text/html'
     Left = 88
-    Top = 280
+    Top = 264
   end
   object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
     Dataset = FDMemTable1
     FieldDefs = <>
     ResponseJSON = RESTResponse1
     Left = 120
-    Top = 280
+    Top = 264
   end
   object ClientDataSetContent: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 322
-    Top = 51
+    Left = 338
+    Top = 3
   end
   object DataSourceContent: TDataSource
     DataSet = ClientDataSetContent
     Left = 338
-    Top = 107
+    Top = 51
   end
 end

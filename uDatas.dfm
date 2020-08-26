@@ -1,9 +1,10 @@
 object frmDatas: TfrmDatas
   Left = 0
   Top = 0
-  Caption = 'frmDatas'
-  ClientHeight = 310
-  ClientWidth = 370
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Refer'#234'ncia de Consulta'
+  ClientHeight = 134
+  ClientWidth = 461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,19 +19,25 @@ object frmDatas: TfrmDatas
   object pnDatas: TPanel
     Left = -7
     Top = -45
-    Width = 441
+    Width = 496
     Height = 353
     TabOrder = 0
     object lblPesquisarDatas: TLabel
-      Left = 23
-      Top = 191
-      Width = 110
-      Height = 13
-      Caption = 'Referencia da consulta'
+      Left = 13
+      Top = 107
+      Width = 147
+      Height = 14
+      Caption = 'Refer'#234'ncia da consulta :'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
     object btnPesquisarDatas: TButton
-      Left = 303
-      Top = 186
+      Left = 381
+      Top = 100
       Width = 75
       Height = 25
       Caption = 'Pesquisar'
@@ -38,9 +45,9 @@ object frmDatas: TfrmDatas
       OnClick = btnPesquisarDatasClick
     end
     object DBLookupComboBox1: TDBLookupComboBox
-      Left = 139
-      Top = 187
-      Width = 145
+      Left = 172
+      Top = 103
+      Width = 189
       Height = 21
       ListSource = DataSource2
       TabOrder = 1

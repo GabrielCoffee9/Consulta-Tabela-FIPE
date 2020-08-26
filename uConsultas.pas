@@ -38,6 +38,10 @@ type
     DataSourceContent: TDataSource;
     lblPesquisarAnos: TLabel;
     edtPesquisarAnos: TEdit;
+    Button1: TButton;
+    pnPrecoFinal: TPanel;
+    memDetalhes: TMemo;
+    btnVoltarDetalhes: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
@@ -89,8 +93,9 @@ begin
 
   dbgModelos.Columns[0].FieldName     := 'Label';
   dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
-  dbgMarcas.Columns[1].FieldName := 'Value';
-  dbgMarcas.Columns[1].Visible := False;
+  dbgMarcas.Columns[1].FieldName      := 'Value';
+  dbgMarcas.Columns[1].Visible        := False;
+  dbgMarcas.Visible                   := True;
   edtPesquisarMarcas.Enabled          := True;
 end;
 
@@ -110,9 +115,10 @@ begin
   RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
   dbgMarcas.Columns[0].FieldName      := 'Label';
-  dbgMarcas.Columns[0].Title.Caption  := 'Ano';
+  dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
   dbgMarcas.Columns[1].FieldName      := 'Value';
   dbgMarcas.Columns[1].Visible        := False;
+  dbgMarcas.Visible                   := True;
   edtPesquisarMarcas.Enabled          := True;
 
 end;
@@ -135,6 +141,7 @@ begin
   dbgMarcas.Columns[0].Title.Caption  := 'Marcas';
   dbgMarcas.Columns[1].FieldName      := 'Value';
   dbgMarcas.Columns[1].Visible        := False;
+  dbgMarcas.Visible                   := True;
   edtPesquisarMarcas.Enabled          := True;
 end;
 
@@ -164,7 +171,7 @@ procedure TfrmConsultas.dbgMarcasDblClick(Sender: TObject);
 begin
   codigoMarca := dbgMarcas.DataSource.DataSet.FieldByName('Value').AsString;
   pnModelos.BringToFront;
-
+  frmConsultas.Caption := 'Modelos';
   transicaoParaPanelModelos;
 end;
 
@@ -172,7 +179,9 @@ procedure TfrmConsultas.dbgModelosDblClick(Sender: TObject);
 begin
   codigoAnos := dbgModelos.DataSource.DataSet.FieldByName('Value').AsString;
   pnAnos.BringToFront;
+  frmConsultas.Caption := 'Anos';
   transicaoParaPanelAnos;
+
 end;
 
 procedure TfrmConsultas.edtPesquisarMarcasChange(Sender: TObject);
@@ -192,9 +201,8 @@ end;
 
 procedure TfrmConsultas.transicaoParaPanelModelos;
   var
-  contentTemp, s: string;
-  tamanho: integer;
-  nPosi: integer;
+  contentTemp: string;
+  tamanho, nPosi: integer;
 begin
   limparRequests;
   RESTRequest1.Resource               := 'ConsultarModelos';
@@ -217,6 +225,7 @@ begin
   dbgModelos.Columns[0].Title.Caption := 'Modelos';
   dbgModelos.Columns[1].FieldName     := 'Value';
   dbgModelos.Columns[1].Visible       := False;
+  edtPesquisarModelos.Enabled         := True;
 end;
 
 procedure TfrmConsultas.transicaoParaPanelAnos;
