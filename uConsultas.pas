@@ -42,6 +42,7 @@ type
     pnPrecoFinal: TPanel;
     memDetalhes: TMemo;
     btnVoltarDetalhes: TButton;
+    DBMemo2: TDBMemo;
     procedure FormCreate(Sender: TObject);
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
@@ -55,7 +56,9 @@ type
     procedure edtPesquisarAnosChange(Sender: TObject);
     procedure transicaoParaPanelModelos;
     procedure transicaoParaPanelAnos;
+    procedure transicaoParaPanelDetalhes;
     procedure converterJsonParaDataset(aDataset: TDataSet; aJSON: string);
+    procedure dbgAnosDblClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -65,7 +68,8 @@ type
 
 var
   frmConsultas:TfrmConsultas;
-  valorDoBody, tipoDoVeiculo,codigoMarca,codigoAnos:string;
+  valorDoBody, tipoDoVeiculo,codigoMarca,codigoModelo:string;
+  valueFinal, tipoCombustivel, anoModelo: string;
   jValue:TJSONValue;
 
 implementation
@@ -81,13 +85,13 @@ procedure TfrmConsultas.btnMotosClick(Sender: TObject);
 begin
   RESTRequest1.Params.Clear;
   limparRequests; //limpar Resquests
-  RESTRequest1.Resource           := 'ConsultarMarcas';       //Parametros
-  tipoDoVeiculo                   := '2';
-  valorDoBody                     :=
+  RESTRequest1.Resource               := 'ConsultarMarcas';       //Parametros
+  tipoDoVeiculo                       := '2';
+  valorDoBody                         :=
   '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
   +'"codigoTipoVeiculo": '+tipoDoVeiculo+'}';
   RESTRequest1.Params.AddBody(valorDobody);
-  RESTResponse1.ContentType       := 'application/json';
+  RESTResponse1.ContentType           := 'application/json';
   RESTRequest1.execute;   //         Executar
   RESTResponseDataSetAdapter1.Active;
 
@@ -104,14 +108,14 @@ begin
   RESTResponseDataSetAdapter1.ClearDataSet;
   limparRequests;
 
-  RESTRequest1.Resource             := 'ConsultarMarcas';
+  RESTRequest1.Resource               := 'ConsultarMarcas';
 
-  tipoDoVeiculo                     := '1';
-  valorDoBody                       :=
+  tipoDoVeiculo                       := '1';
+  valorDoBody                         :=
   '{ "codigoTabelaReferencia":'+codigoDeReferencia+','
   +'"codigoTipoVeiculo":'+tipoDoVeiculo+'}';
   RESTRequest1.Body.Add(valorDoBody);
-  RESTResponse1.ContentType         := 'application/json';
+  RESTResponse1.ContentType           := 'application/json';
   RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
   dbgMarcas.Columns[0].FieldName      := 'Label';
@@ -127,14 +131,14 @@ procedure TfrmConsultas.btnCaminhoesClick(Sender: TObject);
 begin
   RESTResponseDataSetAdapter1.ClearDataSet;
   limparRequests;
-  RESTRequest1.Resource           := 'ConsultarMarcas';
-  tipoDoVeiculo                   := '3';
-  valorDoBody                     :=
+  RESTRequest1.Resource               := 'ConsultarMarcas';
+  tipoDoVeiculo                       := '3';
+  valorDoBody                         :=
   '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
   +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
   '}';
   RESTRequest1.Body.Add(valorDoBody);
-  RESTResponse1.ContentType       := 'application/json';
+  RESTResponse1.ContentType           := 'application/json';
   RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
   dbgMarcas.Columns[0].FieldName      := 'Label';
@@ -160,7 +164,7 @@ begin
   RESTRequest1.Params[0].ContentType:=ctAPPLICATION_JSON;
   RESTRequest1.Params[0].Kind       := pkGETorPOST;
 
-  end;
+end;
 
 procedure TfrmConsultas.btnVoltarMarcasClick(Sender: TObject);
 begin
@@ -177,11 +181,19 @@ end;
 
 procedure TfrmConsultas.dbgModelosDblClick(Sender: TObject);
 begin
-  codigoAnos := dbgModelos.DataSource.DataSet.FieldByName('Value').AsString;
+  codigomodelo := dbgModelos.DataSource.DataSet.FieldByName('Value').AsString;
   pnAnos.BringToFront;
   frmConsultas.Caption := 'Anos';
   transicaoParaPanelAnos;
 
+end;
+
+procedure TfrmConsultas.dbgAnosDblClick(Sender: TObject);
+begin
+  valueFinal      := dbgAnos.DataSource.DataSet.FieldByName('Value').AsString;
+  anoModelo       := copy(valueFinal,1,4);
+  tipoCombustivel := copy(valueFinal,6,1);
+  transicaoParaPanelDetalhes;
 end;
 
 procedure TfrmConsultas.edtPesquisarMarcasChange(Sender: TObject);
@@ -231,26 +243,51 @@ end;
 procedure TfrmConsultas.transicaoParaPanelAnos;
 begin
   limparRequests;
-  RESTRequest1.Resource           := 'ConsultarAnoModelo';
-  valorDoBody                     :=
+  RESTRequest1.Resource               := 'ConsultarAnoModelo';
+  valorDoBody                         :=
   '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
   +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
   ',"codigoMarca": '+codigoMarca+
-  ',"codigoModelo": '+codigoAnos+'}';
+  ',"codigoModelo": '+codigoModelo+'}';
   RESTRequest1.Body.Add(valorDoBody);
-  RESTResponse1.ContentType       := 'application/json';
+  RESTResponse1.ContentType           := 'application/json';
   RESTResponse1.Content.Empty;
   RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
-  dbgAnos.Columns[0].FieldName      := 'Label';
-  dbgAnos.Columns[0].Title.Caption  := 'Ano';
-  dbgAnos.Columns[1].FieldName      := 'Value';
-  dbgAnos.Columns[1].Visible        := False;
-  //colocar edit de pesquisa
-
-
-
+  dbgAnos.Columns[0].FieldName        := 'Label';
+  dbgAnos.Columns[0].Title.Caption    := 'Ano';
+  dbgAnos.Columns[1].FieldName        := 'Value';
+  dbgAnos.Columns[1].Visible          := False;
+  edtPesquisarAnos.Enabled            := True;
 end;
+
+procedure TfrmConsultas.transicaoParaPanelDetalhes;
+//var
+//precoAvaliado, marca, modelo, anoModelo, combustivel,
+//codigoFipe, mesDeReferencia, codigoAutenticacao,data: string;
+begin
+  pnPrecoFinal.BringToFront;
+  limparRequests;
+  RESTRequest1.Resource               := 'ConsultarValorComTodosParametros';
+  valorDoBody                         :=
+  '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
+  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
+  ',"codigoMarca": '+codigoMarca+
+  ',"ano":"'+valueFinal+
+  ',"codigoTipoCombustivel":'+tipoCombustivel+
+  ',"anoModelo":'+anoModelo+
+  ',"codigoModelo": '+codigoModelo+
+  ',"tipoConsulta": "tradicional"}';
+  RESTRequest1.Body.Add(valorDoBody);
+  RESTResponse1.ContentType           := 'application/json';
+  RESTResponse1.Content.Empty;
+  ShowMessage(RESTResponse1.Content);
+  RESTRequest1.execute;
+  RESTResponseDataSetAdapter1.Active;
+
+ end;
+
+
 
 
 
