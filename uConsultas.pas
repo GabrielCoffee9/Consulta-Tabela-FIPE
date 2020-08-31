@@ -42,7 +42,6 @@ type
     pnPrecoFinal: TPanel;
     memDetalhes: TMemo;
     btnVoltarDetalhes: TButton;
-    DBMemo2: TDBMemo;
     procedure FormCreate(Sender: TObject);
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
@@ -59,6 +58,7 @@ type
     procedure transicaoParaPanelDetalhes;
     procedure converterJsonParaDataset(aDataset: TDataSet; aJSON: string);
     procedure dbgAnosDblClick(Sender: TObject);
+    procedure preencherMemosDetalhes;
 
   private
     { Private declarations }
@@ -193,6 +193,7 @@ begin
   valueFinal      := dbgAnos.DataSource.DataSet.FieldByName('Value').AsString;
   anoModelo       := copy(valueFinal,1,4);
   tipoCombustivel := copy(valueFinal,6,1);
+  frmConsultas.Caption := 'Todos os Detalhes';
   transicaoParaPanelDetalhes;
 end;
 
@@ -262,34 +263,38 @@ begin
 end;
 
 procedure TfrmConsultas.transicaoParaPanelDetalhes;
-//var
-//precoAvaliado, marca, modelo, anoModelo, combustivel,
-//codigoFipe, mesDeReferencia, codigoAutenticacao,data: string;
 begin
-  pnPrecoFinal.BringToFront;
-  limparRequests;
-  RESTRequest1.Resource               := 'ConsultarValorComTodosParametros';
-  valorDoBody                         :=
-  '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
-  +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
-  ',"codigoMarca": '+codigoMarca+
-  ',"ano":"'+valueFinal+
-  ',"codigoTipoCombustivel":'+tipoCombustivel+
-  ',"anoModelo":'+anoModelo+
-  ',"codigoModelo": '+codigoModelo+
-  ',"tipoConsulta": "tradicional"}';
-  RESTRequest1.Body.Add(valorDoBody);
-  RESTResponse1.ContentType           := 'application/json';
-  RESTResponse1.Content.Empty;
-  ShowMessage(RESTResponse1.Content);
-  RESTRequest1.execute;
-  RESTResponseDataSetAdapter1.Active;
-
- end;
-
-
-
-
+  try
+    pnPrecoFinal.BringToFront;
+    limparRequests;
+    RESTRequest1.Resource               := 'ConsultarValorComTodosParametros';
+    valorDoBody                         :=
+    '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
+    +'"codigoTipoVeiculo": '+tipoDoVeiculo+''+
+    ',"codigoMarca": '+codigoMarca+
+    ',"ano":"'+valueFinal+'"'+
+    ',"codigoTipoCombustivel":'+tipoCombustivel+
+    ',"anoModelo":'+anoModelo+
+    ',"codigoModelo": '+codigoModelo+
+    ',"tipoConsulta": "tradicional"}';
+    RESTRequest1.Body.Add(valorDoBody);
+    RESTResponse1.ContentType           := 'application/json';
+    RESTResponse1.Content.Empty;
+    RESTRequest1.execute;
+    RESTResponseDataSetAdapter1.Active;
+    preencherMemosDetalhes;
+  except
+  with CreateMessageDialog('Algo deu errado com as informações, por favor tente com outro modelo ou ano',
+   mtInformation,[mbOK]) do
+   try
+    Caption:= 'Erro';
+    ShowModal;
+   finally
+    Free;
+    btnVoltarDetalhes.Click;
+   end;
+  end;
+end;
 
 procedure TfrmConsultas.converterJsonParaDataset(aDataset: TDataSet;
 aJSON: string);
@@ -313,4 +318,27 @@ begin
     jObjeto.Free;
   end;
 end;
+
+procedure TfrmConsultas.preencherMemosDetalhes;
+begin
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Marca: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Marca').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Modelo: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Modelo').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Ano: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('AnoModelo').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Combustível: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Combustivel').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Preço: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Valor').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Código da tabela FIPE: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('CodigoFipe').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Mês de Referência: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('MesReferencia').AsString);
+  memDetalhes.Lines.Add ('Data da Consulta: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('DataConsulta').AsString);
+  memDetalhes.Lines.Add('');
+  memDetalhes.Lines.Add ('Autenticação usada: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Autenticacao').AsString);
+end;
+
 end.

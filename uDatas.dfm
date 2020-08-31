@@ -40,6 +40,7 @@ object frmDatas: TfrmDatas
       Top = 100
       Width = 75
       Height = 25
+      Cursor = crHandPoint
       Caption = 'Pesquisar'
       TabOrder = 0
       OnClick = btnPesquisarDatasClick
@@ -49,6 +50,7 @@ object frmDatas: TfrmDatas
       Top = 103
       Width = 189
       Height = 21
+      Cursor = crHandPoint
       ListSource = DataSource2
       TabOrder = 1
     end
