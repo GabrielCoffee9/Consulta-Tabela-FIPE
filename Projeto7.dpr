@@ -2,10 +2,11 @@ program Projeto7;
 
 uses
   Vcl.Forms,
-  uConsultas in 'uConsultas.pas' {frmConsultas},
-  uDatas in 'uDatas.pas' {frmDatas},
+  uConsultas in 'form\uConsultas.pas' {frmConsultas},
+  uDatas in 'form\uDatas.pas' {frmDatas},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uComparar in 'form\uComparar.pas' {frmComparacao};
 
 {$R *.res}
 

@@ -104,12 +104,16 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="uConsultas.pas">
+        <DCCReference Include="form\uConsultas.pas">
             <Form>frmConsultas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDatas.pas">
+        <DCCReference Include="form\uDatas.pas">
             <Form>frmDatas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="form\uComparar.pas">
+            <Form>frmComparacao</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

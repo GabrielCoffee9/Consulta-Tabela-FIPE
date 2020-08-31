@@ -3,7 +3,7 @@ object frmDatas: TfrmDatas
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Refer'#234'ncia de Consulta'
-  ClientHeight = 134
+  ClientHeight = 128
   ClientWidth = 461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -53,6 +53,15 @@ object frmDatas: TfrmDatas
       Cursor = crHandPoint
       ListSource = DataSource2
       TabOrder = 1
+    end
+    object btnComparar: TButton
+      Left = 13
+      Top = 141
+      Width = 212
+      Height = 25
+      Caption = 'J'#225' Salvei dois registros e Quero Comparar'
+      TabOrder = 2
+      OnClick = btnCompararClick
     end
   end
   object RESTClient2: TRESTClient

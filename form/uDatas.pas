@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, REST.Response.Adapter, REST.Client, Data.Bind.Components,
-  Data.Bind.ObjectScope, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Data.Bind.ObjectScope, Vcl.DBCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, uComparar;
 
 type
   TfrmDatas = class(TForm)
@@ -22,8 +22,10 @@ type
     RESTResponseDataSetAdapter2: TRESTResponseDataSetAdapter;
     FDMemTable2: TFDMemTable;
     DataSource2: TDataSource;
+    btnComparar: TButton;
     procedure btnPesquisarDatasClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnCompararClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -36,6 +38,12 @@ implementation
 {$R *.dfm}
 
 uses uConsultas;
+
+procedure TfrmDatas.btnCompararClick(Sender: TObject);
+begin
+  frmComparacao := TfrmComparacao.Create(Self);
+  frmComparacao.ShowModal;
+end;
 
 procedure TfrmDatas.btnPesquisarDatasClick(Sender: TObject);
 begin

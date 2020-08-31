@@ -9,7 +9,7 @@ uses
   Vcl.DBGrids, Vcl.StdCtrls, Datasnap.DBClient, REST.Response.Adapter, System.JSON,
   Vcl.DBCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDatas, MidasLib;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDatas, MidasLib, IniFiles,System.IOUtils;
 
 type
   TfrmConsultas = class(TForm)
@@ -42,6 +42,7 @@ type
     pnPrecoFinal: TPanel;
     memDetalhes: TMemo;
     btnVoltarDetalhes: TButton;
+    btnSalvarRegistro: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnMotosClick(Sender: TObject);
     procedure btnCarrosClick(Sender: TObject);
@@ -50,6 +51,8 @@ type
     procedure btnVoltarMarcasClick(Sender: TObject);
     procedure dbgMarcasDblClick(Sender: TObject);
     procedure dbgModelosDblClick(Sender: TObject);
+    procedure dbgAnosDblClick(Sender: TObject);
+    procedure btnSalvarRegistroClick(Sender: TObject);
     procedure edtPesquisarMarcasChange(Sender: TObject);
     procedure edtPesquisarModelosChange(Sender: TObject);
     procedure edtPesquisarAnosChange(Sender: TObject);
@@ -57,13 +60,13 @@ type
     procedure transicaoParaPanelAnos;
     procedure transicaoParaPanelDetalhes;
     procedure converterJsonParaDataset(aDataset: TDataSet; aJSON: string);
-    procedure dbgAnosDblClick(Sender: TObject);
     procedure preencherMemosDetalhes;
+
 
   private
     { Private declarations }
   public
-    codigoDeReferencia: string;
+    codigoDeReferencia, nomeParaSalvar: string;
   end;
 
 var
@@ -195,6 +198,34 @@ begin
   tipoCombustivel := copy(valueFinal,6,1);
   frmConsultas.Caption := 'Todos os Detalhes';
   transicaoParaPanelDetalhes;
+end;
+
+procedure TfrmConsultas.btnSalvarRegistroClick(Sender: TObject);
+var
+arquivoIni: TiniFile;
+arq: TextFile;
+begin
+  if not DirectoryExists(Tpath.GetDocumentsPath+'\ConsultaFIPE')then
+  CreateDir(Tpath.GetDocumentsPath+'\ConsultaFIPE');
+
+  if  DirectoryExists(Tpath.GetDocumentsPath+'\ConsultaFIPE')then
+  begin
+    nomeParaSalvar:=InputBox('Salvar Registro', 'Insira o nome Para Salvar','');
+    if Pos('\',nomeParaSalvar)<> 0 then
+    arquivoIni := TIniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\padrao.txt');
+    AssignFile(arq,(Tpath.GetDocumentsPath+'\ConsultaFIPE\padrao.txt'));
+    RenameFile('padrao.txt',nomeParaSalvar+'.ini');
+  end;
+    arquivoIni := TIniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+nomeParaSalvar+'.ini');
+    arquivoIni.WriteString(nomeParaSalvar,'Marca',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Marca').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'Modelo',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Modelo').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'Ano',(RESTResponseDataSetAdapter1.Dataset.FieldByName('AnoModelo').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'Combustivel',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Combustivel').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'Preço',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Valor').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'CodigoFipe',(RESTResponseDataSetAdapter1.Dataset.FieldByName('CodigoFipe').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'Mes de Referencia',(RESTResponseDataSetAdapter1.Dataset.FieldByName('MesReferencia').AsString));
+    arquivoIni.WriteString(nomeParaSalvar,'Data da Consulta',(RESTResponseDataSetAdapter1.Dataset.FieldByName('DataConsulta').AsString));
+    btnSalvarRegistro.Enabled := False;
 end;
 
 procedure TfrmConsultas.edtPesquisarMarcasChange(Sender: TObject);
