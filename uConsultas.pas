@@ -9,7 +9,7 @@ uses
   Vcl.DBGrids, Vcl.StdCtrls, Datasnap.DBClient, REST.Response.Adapter, System.JSON,
   Vcl.DBCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDatas;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDatas, MidasLib;
 
 type
   TfrmConsultas = class(TForm)
@@ -284,7 +284,8 @@ begin
     RESTResponseDataSetAdapter1.Active;
     preencherMemosDetalhes;
   except
-  with CreateMessageDialog('Algo deu errado com as informações, por favor tente com outro modelo ou ano',
+  with CreateMessageDialog('Algo deu errado com as informações, por favor tente'+
+  'com outro modelo ou ano',
    mtInformation,[mbOK]) do
    try
     Caption:= 'Erro';
