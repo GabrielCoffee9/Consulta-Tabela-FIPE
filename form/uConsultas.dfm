@@ -16,41 +16,6 @@ object frmConsultas: TfrmConsultas
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnPrecoFinal: TPanel
-    Left = -31
-    Top = -24
-    Width = 441
-    Height = 353
-    Cursor = crHandPoint
-    TabOrder = 3
-    object memDetalhes: TMemo
-      Left = 47
-      Top = 33
-      Width = 347
-      Height = 264
-      ReadOnly = True
-      TabOrder = 0
-    end
-    object btnVoltarDetalhes: TButton
-      Left = 271
-      Top = 303
-      Width = 123
-      Height = 25
-      Cursor = crHandPoint
-      Caption = 'Voltar para Tela inicial'
-      TabOrder = 1
-      OnClick = btnVoltarMarcasClick
-    end
-    object btnSalvarRegistro: TButton
-      Left = 47
-      Top = 303
-      Width = 87
-      Height = 25
-      Caption = 'Salvar Registro'
-      TabOrder = 2
-      OnClick = btnSalvarRegistroClick
-    end
-  end
   object pnMarcas: TPanel
     Left = -16
     Top = -24
@@ -256,6 +221,41 @@ object frmConsultas: TfrmConsultas
       Caption = 'Voltar para Datas'
       TabOrder = 2
       OnClick = btnVoltarMarcasClick
+    end
+  end
+  object pnPrecoFinal: TPanel
+    Left = -31
+    Top = -24
+    Width = 441
+    Height = 353
+    Cursor = crHandPoint
+    TabOrder = 3
+    object memDetalhes: TMemo
+      Left = 47
+      Top = 33
+      Width = 347
+      Height = 264
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object btnVoltarDetalhes: TButton
+      Left = 271
+      Top = 303
+      Width = 123
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar para Tela inicial'
+      TabOrder = 1
+      OnClick = btnVoltarMarcasClick
+    end
+    object btnSalvarRegistro: TButton
+      Left = 47
+      Top = 303
+      Width = 87
+      Height = 25
+      Caption = 'Salvar Registro'
+      TabOrder = 2
+      OnClick = btnSalvarRegistroClick
     end
   end
   object DataSource1: TDataSource
