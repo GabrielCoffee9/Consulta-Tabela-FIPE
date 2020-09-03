@@ -16,97 +16,6 @@ object frmConsultas: TfrmConsultas
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnMarcas: TPanel
-    Left = -16
-    Top = -24
-    Width = 441
-    Height = 353
-    TabOrder = 0
-    object lblEditMarcas: TLabel
-      Left = 32
-      Top = 96
-      Width = 87
-      Height = 13
-      Caption = 'Pesquisar marcas:'
-    end
-    object btnMotos: TButton
-      Left = 164
-      Top = 49
-      Width = 75
-      Height = 25
-      Cursor = crHandPoint
-      Caption = 'Motos'
-      TabOrder = 0
-      OnClick = btnMotosClick
-    end
-    object btnCarros: TButton
-      Left = 32
-      Top = 49
-      Width = 75
-      Height = 25
-      Cursor = crHandPoint
-      Caption = 'Carros'
-      TabOrder = 1
-      OnClick = btnCarrosClick
-    end
-    object dbgMarcas: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
-      Height = 169
-      Cursor = crHandPoint
-      DataSource = DataSource1
-      ReadOnly = True
-      TabOrder = 2
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      Visible = False
-      OnDblClick = dbgMarcasDblClick
-      Columns = <
-        item
-          Expanded = False
-          Title.Caption = 'Marcas'
-          Visible = True
-        end
-        item
-          Expanded = False
-          Visible = True
-        end>
-    end
-    object btnCaminhoes: TButton
-      Left = 291
-      Top = 49
-      Width = 75
-      Height = 25
-      Cursor = crHandPoint
-      Caption = 'Caminh'#245'es'
-      TabOrder = 3
-      OnClick = btnCaminhoesClick
-    end
-    object edtPesquisarMarcas: TEdit
-      Left = 125
-      Top = 93
-      Width = 180
-      Height = 21
-      Cursor = crIBeam
-      Enabled = False
-      TabOrder = 4
-      OnChange = edtPesquisarMarcasChange
-    end
-    object btnVoltarMarcas: TButton
-      Left = 283
-      Top = 303
-      Width = 96
-      Height = 25
-      Cursor = crHandPoint
-      Caption = 'Voltar para Datas'
-      TabOrder = 5
-      OnClick = btnVoltarMarcasClick
-    end
-  end
   object pnModelos: TPanel
     Left = -22
     Top = -45
@@ -256,6 +165,97 @@ object frmConsultas: TfrmConsultas
       Caption = 'Salvar Registro'
       TabOrder = 2
       OnClick = btnSalvarRegistroClick
+    end
+  end
+  object pnMarcas: TPanel
+    Left = -16
+    Top = -24
+    Width = 441
+    Height = 353
+    TabOrder = 0
+    object lblEditMarcas: TLabel
+      Left = 32
+      Top = 96
+      Width = 87
+      Height = 13
+      Caption = 'Pesquisar marcas:'
+    end
+    object btnMotos: TButton
+      Left = 164
+      Top = 49
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Motos'
+      TabOrder = 0
+      OnClick = btnMotosClick
+    end
+    object btnCarros: TButton
+      Left = 32
+      Top = 49
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Carros'
+      TabOrder = 1
+      OnClick = btnCarrosClick
+    end
+    object dbgMarcas: TDBGrid
+      Left = 24
+      Top = 128
+      Width = 320
+      Height = 169
+      Cursor = crHandPoint
+      DataSource = DataSource1
+      ReadOnly = True
+      TabOrder = 2
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      Visible = False
+      OnDblClick = dbgMarcasDblClick
+      Columns = <
+        item
+          Expanded = False
+          Title.Caption = 'Marcas'
+          Visible = True
+        end
+        item
+          Expanded = False
+          Visible = True
+        end>
+    end
+    object btnCaminhoes: TButton
+      Left = 291
+      Top = 49
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Caminh'#245'es'
+      TabOrder = 3
+      OnClick = btnCaminhoesClick
+    end
+    object edtPesquisarMarcas: TEdit
+      Left = 125
+      Top = 93
+      Width = 180
+      Height = 21
+      Cursor = crIBeam
+      Enabled = False
+      TabOrder = 4
+      OnChange = edtPesquisarMarcasChange
+    end
+    object btnVoltarMarcas: TButton
+      Left = 283
+      Top = 303
+      Width = 96
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar para Datas'
+      TabOrder = 5
+      OnClick = btnVoltarMarcasClick
     end
   end
   object DataSource1: TDataSource

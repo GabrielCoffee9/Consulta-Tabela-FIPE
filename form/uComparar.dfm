@@ -16,15 +16,37 @@ object frmComparacao: TfrmComparacao
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object pnTodosOsParametros: TPanel
+    Left = -7
+    Top = -9
+    Width = 393
+    Height = 326
+    TabOrder = 2
+    object rdtComparacao: TRichEdit
+      Left = 15
+      Top = 28
+      Width = 353
+      Height = 277
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      Zoom = 100
+    end
+  end
   object pnExcluir: TPanel
     Left = -8
     Top = -8
     Width = 393
     Height = 326
+    ParentBackground = False
     TabOrder = 1
     object lblSelecione: TLabel
       Left = 74
-      Top = 62
+      Top = 102
       Width = 234
       Height = 14
       Caption = 'Selecione o registro que deseja excluir'
@@ -35,21 +57,13 @@ object frmComparacao: TfrmComparacao
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object ComboBox1: TComboBox
-      Left = 106
-      Top = 110
-      Width = 145
+    object cbxExcluir: TComboBox
+      Left = 74
+      Top = 157
+      Width = 223
       Height = 22
       Style = csOwnerDrawFixed
       TabOrder = 0
-    end
-    object Button1: TButton
-      Left = 138
-      Top = 177
-      Width = 75
-      Height = 25
-      Caption = 'Button1'
-      TabOrder = 1
     end
     object btnVoltarDaExclusao: TButton
       Left = 12
@@ -57,8 +71,23 @@ object frmComparacao: TfrmComparacao
       Width = 41
       Height = 25
       Caption = 'Voltar'
-      TabOrder = 2
+      TabOrder = 1
       OnClick = btnVoltarDaExclusaoClick
+    end
+    object btnTenhoCerteza: TBitBtn
+      Left = 40
+      Top = 223
+      Width = 297
+      Height = 43
+      Caption = 'Tenho certeza que quero excluir esse registro'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnTenhoCertezaClick
     end
   end
   object pnCompararPrincipal: TPanel
@@ -125,6 +154,7 @@ object frmComparacao: TfrmComparacao
       Height = 25
       Caption = 'Comparar Registros'
       TabOrder = 3
+      OnClick = btnSelecionarClick
     end
   end
 end
