@@ -61,8 +61,6 @@ type
     procedure transicaoParaPanelDetalhes;
     procedure converterJsonParaDataset(aDataset: TDataSet; aJSON: string);
     procedure preencherMemosDetalhes;
-
-
   private
     { Private declarations }
   public
@@ -210,32 +208,34 @@ begin
 
   if  DirectoryExists(Tpath.GetDocumentsPath+'\ConsultaFIPE')then
   begin
-    nomeParaSalvar:=InputBox('Salvar Registro', 'Insira o nome Para Salvar','');
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'\','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'/','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'?','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,':','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'*','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'"','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'<','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'>','', [rfReplaceAll, rfIgnoreCase]);
-    nomeParaSalvar:=StringReplace(nomeParaSalvar,'|','', [rfReplaceAll, rfIgnoreCase]);
-    if nomeParaSalvar = '' then
-    ShowMessage('Não foi possivel salvar pois o nome arquivo é vazio,'+
-     'tente novamente com outro nome. OBS: Alguns caracteres especiais '+
-     'não são permitidos')
-    else
+    if Inputquery('Salvar Registro', 'Insira o nome Para Salvar',nomeParaSalvar)then
     begin
-      arquivoIni := TIniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+nomeParaSalvar+'.ini');
-      arquivoIni.WriteString(nomeParaSalvar,'Marca',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Marca').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'Modelo',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Modelo').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'Ano',(RESTResponseDataSetAdapter1.Dataset.FieldByName('AnoModelo').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'Combustivel',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Combustivel').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'Preço',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Valor').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'CodigoFipe',(RESTResponseDataSetAdapter1.Dataset.FieldByName('CodigoFipe').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'Mes de Referencia',(RESTResponseDataSetAdapter1.Dataset.FieldByName('MesReferencia').AsString));
-      arquivoIni.WriteString(nomeParaSalvar,'Data da Consulta',(RESTResponseDataSetAdapter1.Dataset.FieldByName('DataConsulta').AsString));
-      btnSalvarRegistro.Enabled := False;
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'\','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'/','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'?','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,':','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'*','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'"','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'<','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'>','', [rfReplaceAll, rfIgnoreCase]);
+      nomeParaSalvar:=StringReplace(nomeParaSalvar,'|','', [rfReplaceAll, rfIgnoreCase]);
+      if nomeParaSalvar = '' then
+        ShowMessage('Não foi possivel salvar, pois o nome registro é vazio, '+
+        'tente novamente com outro nome. OBS: Alguns caracteres especiais '+
+        'não são permitidos')
+      else
+      begin
+        arquivoIni := TIniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+nomeParaSalvar+'.ini');
+        arquivoIni.WriteString(nomeParaSalvar,'Marca',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Marca').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'Modelo',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Modelo').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'Ano',(RESTResponseDataSetAdapter1.Dataset.FieldByName('AnoModelo').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'Combustivel',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Combustivel').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'Preço',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Valor').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'CodigoFipe',(RESTResponseDataSetAdapter1.Dataset.FieldByName('CodigoFipe').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'Mes de Referencia',(RESTResponseDataSetAdapter1.Dataset.FieldByName('MesReferencia').AsString));
+        arquivoIni.WriteString(nomeParaSalvar,'Data da Consulta',(RESTResponseDataSetAdapter1.Dataset.FieldByName('DataConsulta').AsString));
+        btnSalvarRegistro.Enabled := False;
+      end;
     end;
 
   end;

@@ -16,27 +16,6 @@ object frmComparacao: TfrmComparacao
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnTodosOsParametros: TPanel
-    Left = -7
-    Top = -9
-    Width = 393
-    Height = 326
-    TabOrder = 2
-    object rdtComparacao: TRichEdit
-      Left = 15
-      Top = 28
-      Width = 353
-      Height = 277
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      Zoom = 100
-    end
-  end
   object pnExcluir: TPanel
     Left = -8
     Top = -8

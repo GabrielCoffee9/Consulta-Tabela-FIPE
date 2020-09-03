@@ -24,7 +24,7 @@ object frmDatas: TfrmDatas
     TabOrder = 0
     object lblPesquisarDatas: TLabel
       Left = 13
-      Top = 107
+      Top = 97
       Width = 147
       Height = 14
       Caption = 'Refer'#234'ncia da consulta :'
@@ -37,7 +37,7 @@ object frmDatas: TfrmDatas
     end
     object btnPesquisarDatas: TButton
       Left = 381
-      Top = 100
+      Top = 91
       Width = 75
       Height = 25
       Cursor = crHandPoint
@@ -47,7 +47,7 @@ object frmDatas: TfrmDatas
     end
     object DBLookupComboBox1: TDBLookupComboBox
       Left = 172
-      Top = 103
+      Top = 93
       Width = 189
       Height = 21
       Cursor = crHandPoint
@@ -56,7 +56,7 @@ object frmDatas: TfrmDatas
     end
     object btnComparar: TButton
       Left = 13
-      Top = 141
+      Top = 139
       Width = 212
       Height = 25
       Caption = 'J'#225' Salvei dois registros e Quero Comparar'

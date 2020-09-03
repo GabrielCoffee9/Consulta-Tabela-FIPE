@@ -16,62 +16,6 @@ object frmConsultas: TfrmConsultas
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnModelos: TPanel
-    Left = -22
-    Top = -45
-    Width = 441
-    Height = 353
-    TabOrder = 2
-    object lblEditModelos: TLabel
-      Left = 33
-      Top = 106
-      Width = 92
-      Height = 13
-      Caption = 'Pesquisar Modelos:'
-    end
-    object dbgModelos: TDBGrid
-      Left = 30
-      Top = 136
-      Width = 348
-      Height = 169
-      Cursor = crHandPoint
-      DataSource = DataSourceContent
-      ReadOnly = True
-      TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'Tahoma'
-      TitleFont.Style = []
-      OnDblClick = dbgModelosDblClick
-      Columns = <
-        item
-          Expanded = False
-          Title.Caption = 'Modelos'
-          Visible = True
-        end>
-    end
-    object edtPesquisarModelos: TEdit
-      Left = 131
-      Top = 103
-      Width = 180
-      Height = 21
-      Cursor = crIBeam
-      Enabled = False
-      TabOrder = 1
-      OnChange = edtPesquisarModelosChange
-    end
-    object btnVoltarModelos: TButton
-      Left = 289
-      Top = 311
-      Width = 98
-      Height = 25
-      Cursor = crHandPoint
-      Caption = 'Voltar para Datas'
-      TabOrder = 2
-      OnClick = btnVoltarMarcasClick
-    end
-  end
   object pnAnos: TPanel
     Left = -22
     Top = -45
@@ -167,6 +111,62 @@ object frmConsultas: TfrmConsultas
       OnClick = btnSalvarRegistroClick
     end
   end
+  object pnModelos: TPanel
+    Left = -22
+    Top = -48
+    Width = 441
+    Height = 359
+    TabOrder = 2
+    object lblEditModelos: TLabel
+      Left = 33
+      Top = 106
+      Width = 92
+      Height = 13
+      Caption = 'Pesquisar Modelos:'
+    end
+    object dbgModelos: TDBGrid
+      Left = 33
+      Top = 141
+      Width = 348
+      Height = 169
+      Cursor = crHandPoint
+      DataSource = DataSourceContent
+      ReadOnly = True
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      OnDblClick = dbgModelosDblClick
+      Columns = <
+        item
+          Expanded = False
+          Title.Caption = 'Modelos'
+          Visible = True
+        end>
+    end
+    object edtPesquisarModelos: TEdit
+      Left = 131
+      Top = 103
+      Width = 180
+      Height = 21
+      Cursor = crIBeam
+      Enabled = False
+      TabOrder = 1
+      OnChange = edtPesquisarModelosChange
+    end
+    object btnVoltarModelos: TButton
+      Left = 287
+      Top = 327
+      Width = 98
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar para Datas'
+      TabOrder = 2
+      OnClick = btnVoltarMarcasClick
+    end
+  end
   object pnMarcas: TPanel
     Left = -16
     Top = -24
@@ -201,9 +201,9 @@ object frmConsultas: TfrmConsultas
       OnClick = btnCarrosClick
     end
     object dbgMarcas: TDBGrid
-      Left = 24
-      Top = 128
-      Width = 320
+      Left = 27
+      Top = 120
+      Width = 348
       Height = 169
       Cursor = crHandPoint
       DataSource = DataSource1

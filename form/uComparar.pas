@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, System.IOUtils,
-  Vcl.Buttons, Vcl.ComCtrls;
+  Vcl.Buttons, Vcl.ComCtrls, IniFiles, uComparacoes;
 
 type
   TfrmComparacao = class(TForm)
@@ -21,8 +21,6 @@ type
     lblSelecione: TLabel;
     btnVoltarDaExclusao: TButton;
     btnTenhoCerteza: TBitBtn;
-    pnTodosOsParametros: TPanel;
-    rdtComparacao: TRichEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnTransicaoParaExclusaoClick(Sender: TObject);
     procedure btnVoltarDaExclusaoClick(Sender: TObject);
@@ -47,12 +45,14 @@ implementation
 
 
 procedure TfrmComparacao.btnSelecionarClick(Sender: TObject);
+
 begin
   if cbxRegistro1.Text = cbxRegistro2.Text then
   ShowMessage('Você não pode comparar dois registros iguais!')
   else
   begin
-    //comparacao
+  frmComparacoes := TfrmComparacoes.Create(Self);
+  frmComparacoes.ShowModal;
   end;
 end;
 
