@@ -13,6 +13,7 @@ object frmDatas: TfrmDatas
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -59,6 +60,7 @@ object frmDatas: TfrmDatas
       Top = 139
       Width = 212
       Height = 25
+      Cursor = crHandPoint
       Caption = 'J'#225' Salvei dois registros e Quero Comparar'
       TabOrder = 2
       OnClick = btnCompararClick

@@ -26,6 +26,7 @@ type
     procedure btnPesquisarDatasClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCompararClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -41,8 +42,8 @@ uses uConsultas;
 
 procedure TfrmDatas.btnCompararClick(Sender: TObject);
 begin
-  frmComparacao := TfrmComparacao.Create(Self);
-  frmComparacao.ShowModal;
+  frmComparar := TfrmComparar.Create(Self);
+  frmComparar.ShowModal;
 end;
 
 procedure TfrmDatas.btnPesquisarDatasClick(Sender: TObject);
@@ -50,6 +51,12 @@ begin
   frmConsultas := TfrmConsultas.Create(self);
   frmConsultas.codigoDeReferencia:= DBLookupComboBox1.ListSource.DataSet.FieldByName('codigo').AsString;
   frmConsultas.ShowModal;
+end;
+
+procedure TfrmDatas.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmDatas := nil;
 end;
 
 procedure TfrmDatas.FormCreate(Sender: TObject);

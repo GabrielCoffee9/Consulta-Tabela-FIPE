@@ -1,4 +1,4 @@
-object frmComparacao: TfrmComparacao
+object frmComparar: TfrmComparar
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
@@ -13,6 +13,7 @@ object frmComparacao: TfrmComparacao
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -49,6 +50,7 @@ object frmComparacao: TfrmComparacao
       Top = 13
       Width = 41
       Height = 25
+      Cursor = crHandPoint
       Caption = 'Voltar'
       TabOrder = 1
       OnClick = btnVoltarDaExclusaoClick
@@ -58,6 +60,7 @@ object frmComparacao: TfrmComparacao
       Top = 223
       Width = 297
       Height = 43
+      Cursor = crHandPoint
       Caption = 'Tenho certeza que quero excluir esse registro'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -106,6 +109,7 @@ object frmComparacao: TfrmComparacao
       Top = 152
       Width = 145
       Height = 22
+      Cursor = crHandPoint
       Style = csOwnerDrawFixed
       TabOrder = 0
     end
@@ -114,6 +118,7 @@ object frmComparacao: TfrmComparacao
       Top = 152
       Width = 145
       Height = 22
+      Cursor = crHandPoint
       Style = csOwnerDrawFixed
       TabOrder = 1
     end
@@ -122,18 +127,30 @@ object frmComparacao: TfrmComparacao
       Top = 288
       Width = 89
       Height = 25
+      Cursor = crHandPoint
       Caption = 'Excluir Registro'
       TabOrder = 2
       OnClick = btnTransicaoParaExclusaoClick
     end
     object btnSelecionar: TButton
-      Left = 138
+      Left = 130
       Top = 208
       Width = 121
       Height = 25
+      Cursor = crHandPoint
       Caption = 'Comparar Registros'
       TabOrder = 3
       OnClick = btnSelecionarClick
+    end
+    object btnCompararFechar: TButton
+      Left = 294
+      Top = 288
+      Width = 75
+      Height = 25
+      Cursor = crHandPoint
+      Caption = 'Voltar'
+      TabOrder = 4
+      OnClick = btnCompararFecharClick
     end
   end
 end

@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,IniFiles,System.IOUtils;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,IniFiles,System.IOUtils, MidasLib;
 
 type
   TfrmComparacoes = class(TForm)
@@ -16,7 +16,8 @@ type
     memMostrarRegistro1: TMemo;
     memMostrarRegistro2: TMemo;
     procedure Button1Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+    procedure exibirTodosOsDetalhes(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -39,38 +40,70 @@ begin
   Close;
 end;
 
-procedure TfrmComparacoes.FormCreate(Sender: TObject);
-begin
-    memMostrarRegistro1.Clear;
-    memMostrarRegistro2.Clear;
-    arquivoIni := TiniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+frmComparacao.cbxRegistro1.Text+'.ini');
-    With informacoesRegistro1 do
-    begin
-      Add('');
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Marca','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Modelo','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Ano','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Combustivel','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Preço','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'CodigoFipe','Erro'));
-      Add('');
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Mes de Referencia','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro1.Text,'Data da Consulta','Erro'));
-    end;
+//procedure TfrmComparacoes.exibirDetalhes;
 
-    With informacoesRegistro2 do
-    begin
-      Add('');
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Marca','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Modelo','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Ano','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Combustivel','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Preço','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'CodigoFipe','Erro'));
-      Add('');
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Mes de Referencia','Erro'));
-      Add(arquivoIni.ReadString(frmComparacao.cbxRegistro2.Text,'Data da Consulta','Erro'));
-    end;
+procedure TfrmComparacoes.exibirTodosOsDetalhes(Sender: TObject);
+begin
+  memMostrarRegistro1.Clear;
+  memMostrarRegistro2.Clear;
+
+  arquivoIni := TIniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+frmComparar.cbxRegistro1.Text+'.ini');
+  With memMostrarRegistro1.Lines do
+  begin
+    Add('');
+    Add('');
+    Add('');
+    Add('Marca: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Marca','Erro'));
+    Add('');
+    Add('Modelo: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Modelo','Erro'));
+    Add('');
+    Add('Ano: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Ano','Erro'));
+    Add('');
+    Add('Tipo de Combustivel: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Combustivel','Erro'));
+    Add('');
+    Add('Preço: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Preço','Erro'));
+    Add('');
+    Add('Codigo FIPE: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'CodigoFipe','Erro'));
+    Add('');
+    Add('');
+    Add('Mês de Referência: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Mes de Referencia','Erro'));
+    Add('');
+    Add('Data Da Consulta: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Data da Consulta','Erro'));
+    arquivoIni.Free;
+    lblRegistro1Comparacao.Caption:= frmComparar.cbxRegistro1.Text;
+  end;
+
+  arquivoIni := TiniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+frmComparar.cbxRegistro2.Text+'.ini');
+  With memMostrarRegistro2.Lines do
+  begin
+    Add('');
+    Add('');
+    Add('');
+    Add('Marca: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Marca','Erro'));
+    Add('');
+    Add('Modelo: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Modelo','Erro'));
+    Add('');
+    Add('Ano: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Ano','Erro'));
+    Add('');
+    Add('Tipo de Combustivel: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Combustivel','Erro'));
+    Add('');
+    Add('Preço: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Preço','Erro'));
+    Add('');
+    Add('Codigo FIPE: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'CodigoFipe','Erro'));
+    Add('');
+    Add('');
+    Add('Mês de Referência: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Mes de Referencia','Erro'));
+    Add('');
+    Add('Data Da Consulta: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Data da Consulta','Erro'));
+    arquivoIni.Free;
+    lblRegistro2Comparacao.Caption:= frmComparar.cbxRegistro2.Text;
+  end;
+end;
+
+procedure TfrmComparacoes.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ Action := caFree;
+ frmComparacoes := nil;
 end;
 
 end.

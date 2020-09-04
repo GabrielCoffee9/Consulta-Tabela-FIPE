@@ -61,6 +61,7 @@ type
     procedure transicaoParaPanelDetalhes;
     procedure converterJsonParaDataset(aDataset: TDataSet; aJSON: string);
     procedure preencherMemosDetalhes;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -76,6 +77,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmConsultas.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Action := caFree;
+ frmConsultas := nil;
+end;
 
 procedure TfrmConsultas.FormCreate(Sender: TObject);
 begin
@@ -234,6 +241,7 @@ begin
         arquivoIni.WriteString(nomeParaSalvar,'CodigoFipe',(RESTResponseDataSetAdapter1.Dataset.FieldByName('CodigoFipe').AsString));
         arquivoIni.WriteString(nomeParaSalvar,'Mes de Referencia',(RESTResponseDataSetAdapter1.Dataset.FieldByName('MesReferencia').AsString));
         arquivoIni.WriteString(nomeParaSalvar,'Data da Consulta',(RESTResponseDataSetAdapter1.Dataset.FieldByName('DataConsulta').AsString));
+        arquivoIni.Free;
         btnSalvarRegistro.Enabled := False;
       end;
     end;

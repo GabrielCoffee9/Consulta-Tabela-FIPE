@@ -12,7 +12,8 @@ object frmComparacoes: TfrmComparacoes
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnCreate = FormCreate
+  OnClose = FormClose
+  OnCreate = exibirTodosOsDetalhes
   PixelsPerInch = 96
   TextHeight = 13
   object pnPrincipal: TPanel
@@ -35,7 +36,7 @@ object frmComparacoes: TfrmComparacoes
       ParentFont = False
     end
     object lblRegistro1Comparacao: TLabel
-      Left = 100
+      Left = 16
       Top = 25
       Width = 64
       Height = 14
@@ -48,7 +49,7 @@ object frmComparacoes: TfrmComparacoes
       ParentFont = False
     end
     object lblRegistro2Comparacao: TLabel
-      Left = 450
+      Left = 351
       Top = 25
       Width = 64
       Height = 14
@@ -65,6 +66,7 @@ object frmComparacoes: TfrmComparacoes
       Top = 304
       Width = 67
       Height = 25
+      Cursor = crHandPoint
       Caption = 'Voltar'
       TabOrder = 0
       OnClick = Button1Click
@@ -74,6 +76,7 @@ object frmComparacoes: TfrmComparacoes
       Top = 40
       Width = 249
       Height = 289
+      ReadOnly = True
       TabOrder = 1
     end
     object memMostrarRegistro2: TMemo
@@ -81,6 +84,7 @@ object frmComparacoes: TfrmComparacoes
       Top = 40
       Width = 249
       Height = 289
+      ReadOnly = True
       TabOrder = 2
     end
   end
