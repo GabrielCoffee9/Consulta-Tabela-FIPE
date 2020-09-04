@@ -39,9 +39,6 @@ procedure TfrmComparacoes.Button1Click(Sender: TObject);
 begin
   Close;
 end;
-
-//procedure TfrmComparacoes.exibirDetalhes;
-
 procedure TfrmComparacoes.exibirTodosOsDetalhes(Sender: TObject);
 begin
   memMostrarRegistro1.Clear;
@@ -102,7 +99,7 @@ end;
 
 procedure TfrmComparacoes.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
- Action := caFree;
+ Action         := caFree;
  frmComparacoes := nil;
 end;
 

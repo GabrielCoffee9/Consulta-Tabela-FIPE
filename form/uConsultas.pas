@@ -80,8 +80,8 @@ implementation
 
 procedure TfrmConsultas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-Action := caFree;
- frmConsultas := nil;
+  Action        := caFree;
+  frmConsultas := nil;
 end;
 
 procedure TfrmConsultas.FormCreate(Sender: TObject);
@@ -92,15 +92,15 @@ end;
 procedure TfrmConsultas.btnMotosClick(Sender: TObject);
 begin
   RESTRequest1.Params.Clear;
-  limparRequests; //limpar Resquests
-  RESTRequest1.Resource               := 'ConsultarMarcas';       //Parametros
+  limparRequests;
+  RESTRequest1.Resource               := 'ConsultarMarcas';
   tipoDoVeiculo                       := '2';
   valorDoBody                         :=
   '{ "codigoTabelaReferencia": '+codigoDeReferencia+','
   +'"codigoTipoVeiculo": '+tipoDoVeiculo+'}';
   RESTRequest1.Params.AddBody(valorDobody);
   RESTResponse1.ContentType           := 'application/json';
-  RESTRequest1.execute;   //         Executar
+  RESTRequest1.execute;
   RESTResponseDataSetAdapter1.Active;
 
   dbgModelos.Columns[0].FieldName     := 'Label';
@@ -159,7 +159,7 @@ end;
 
 procedure TfrmConsultas.limparRequests;
 begin
-  RESTClient1.BaseURL := 'http://veiculos.fipe.org.br/api/veiculos';
+  RESTClient1.BaseURL                 := 'http://veiculos.fipe.org.br/api/veiculos';
 
   dbgMarcas.Columns.Clear;
   dbgModelos.Columns.Clear;
@@ -169,8 +169,8 @@ begin
   RESTResponseDataSetAdapter1.ClearDataSet;
   RESTRequest1.Params.Clear;
   RESTRequest1.Params.Add;
-  RESTRequest1.Params[0].ContentType:=ctAPPLICATION_JSON;
-  RESTRequest1.Params[0].Kind       := pkGETorPOST;
+  RESTRequest1.Params[0].ContentType  :=ctAPPLICATION_JSON;
+  RESTRequest1.Params[0].Kind         := pkGETorPOST;
 
 end;
 
@@ -181,7 +181,7 @@ end;
 
 procedure TfrmConsultas.dbgMarcasDblClick(Sender: TObject);
 begin
-  codigoMarca := dbgMarcas.DataSource.DataSet.FieldByName('Value').AsString;
+  codigoMarca          := dbgMarcas.DataSource.DataSet.FieldByName('Value').AsString;
   pnModelos.BringToFront;
   frmConsultas.Caption := 'Modelos';
   transicaoParaPanelModelos;
@@ -189,7 +189,7 @@ end;
 
 procedure TfrmConsultas.dbgModelosDblClick(Sender: TObject);
 begin
-  codigomodelo := dbgModelos.DataSource.DataSet.FieldByName('Value').AsString;
+  codigomodelo         := dbgModelos.DataSource.DataSet.FieldByName('Value').AsString;
   pnAnos.BringToFront;
   frmConsultas.Caption := 'Anos';
   transicaoParaPanelAnos;
@@ -198,9 +198,9 @@ end;
 
 procedure TfrmConsultas.dbgAnosDblClick(Sender: TObject);
 begin
-  valueFinal      := dbgAnos.DataSource.DataSet.FieldByName('Value').AsString;
-  anoModelo       := copy(valueFinal,1,4);
-  tipoCombustivel := copy(valueFinal,6,1);
+  valueFinal           := dbgAnos.DataSource.DataSet.FieldByName('Value').AsString;
+  anoModelo            := copy(valueFinal,1,4);
+  tipoCombustivel      := copy(valueFinal,6,1);
   frmConsultas.Caption := 'Todos os Detalhes';
   transicaoParaPanelDetalhes;
 end;
@@ -208,7 +208,6 @@ end;
 procedure TfrmConsultas.btnSalvarRegistroClick(Sender: TObject);
 var
 arquivoIni: TiniFile;
-arq: TextFile;
 begin
   if not DirectoryExists(Tpath.GetDocumentsPath+'\ConsultaFIPE')then
   CreateDir(Tpath.GetDocumentsPath+'\ConsultaFIPE');
@@ -280,10 +279,10 @@ begin
   RESTResponse1.ContentType           := 'application/json';
   RESTResponse1.Content.Empty;
   RESTRequest1.execute;
-  contentTemp := RESTResponse1.Content;
+  contentTemp                         := RESTResponse1.Content;
   delete(contentTemp,1,11);
-  nPosi := Pos('],"Anos',contentTemp);
-  tamanho:= length(contentTemp);
+  nPosi                               := Pos('],"Anos',contentTemp);
+  tamanho                             := length(contentTemp);
   delete (contentTemp,nPosi+1,tamanho);
   converterJsonParaDataset(ClientDataSetContent,contentTemp);
   ClientDataSetContent.Active;

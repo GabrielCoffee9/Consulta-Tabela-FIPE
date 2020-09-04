@@ -107,8 +107,8 @@ end;
 
 procedure TfrmComparar.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-Action := caFree;
- frmComparar := nil;
+  Action      := caFree;
+  frmComparar := nil;
 end;
 
 procedure TfrmComparar.FormCreate(Sender: TObject);
@@ -139,7 +139,7 @@ end;
 
 procedure TfrmComparar.mostrarArquivos;
 var
-indice: integer;
+  indice: integer;
 begin
   listarArquivos;
   for indice := 0 to cbxRegistro1.Items.Count -1 do
