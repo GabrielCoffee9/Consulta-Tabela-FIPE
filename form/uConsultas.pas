@@ -73,6 +73,7 @@ var
   valorDoBody, tipoDoVeiculo,codigoMarca,codigoModelo:string;
   valueFinal, tipoCombustivel, anoModelo: string;
   jValue:TJSONValue;
+  Existe: integer;
 
 implementation
 
@@ -235,6 +236,9 @@ begin
         arquivoIni.WriteString(nomeParaSalvar,'Marca',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Marca').AsString));
         arquivoIni.WriteString(nomeParaSalvar,'Modelo',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Modelo').AsString));
         arquivoIni.WriteString(nomeParaSalvar,'Ano',(RESTResponseDataSetAdapter1.Dataset.FieldByName('AnoModelo').AsString));
+        if Existe <> 0 then
+        arquivoIni.WriteString(nomeParaSalvar,'Combustivel','Flex')
+        else
         arquivoIni.WriteString(nomeParaSalvar,'Combustivel',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Combustivel').AsString));
         arquivoIni.WriteString(nomeParaSalvar,'Preço',(RESTResponseDataSetAdapter1.Dataset.FieldByName('Valor').AsString));
         arquivoIni.WriteString(nomeParaSalvar,'CodigoFipe',(RESTResponseDataSetAdapter1.Dataset.FieldByName('CodigoFipe').AsString));
@@ -374,6 +378,7 @@ end;
 
 procedure TfrmConsultas.preencherMemosDetalhes;
 begin
+  Existe := Pos('Flex',RESTResponseDataSetAdapter1.Dataset.FieldByName('Modelo').AsString);
   memDetalhes.Lines.Add('');
   memDetalhes.Lines.Add ('Marca: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Marca').AsString);
   memDetalhes.Lines.Add('');
@@ -381,6 +386,9 @@ begin
   memDetalhes.Lines.Add('');
   memDetalhes.Lines.Add ('Ano: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('AnoModelo').AsString);
   memDetalhes.Lines.Add('');
+  if Existe <> 0 then
+  memDetalhes.Lines.Add ('Combustível: Flex')
+  else
   memDetalhes.Lines.Add ('Combustível: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Combustivel').AsString);
   memDetalhes.Lines.Add('');
   memDetalhes.Lines.Add ('Preço: '+ RESTResponseDataSetAdapter1.Dataset.FieldByName('Valor').AsString);
