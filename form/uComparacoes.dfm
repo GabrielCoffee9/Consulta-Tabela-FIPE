@@ -61,7 +61,7 @@ object frmComparacoes: TfrmComparacoes
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object Button1: TButton
+    object btnVoltar: TButton
       Left = 275
       Top = 304
       Width = 67
@@ -69,23 +69,37 @@ object frmComparacoes: TfrmComparacoes
       Cursor = crHandPoint
       Caption = 'Voltar'
       TabOrder = 0
-      OnClick = Button1Click
+      OnClick = btnVoltarClick
     end
-    object memMostrarRegistro1: TMemo
+    object rdtMostrarRegistro1: TRichEdit
       Left = 16
       Top = 40
-      Width = 249
+      Width = 253
       Height = 289
-      ReadOnly = True
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 1
+      StyleElements = [seFont, seBorder]
+      Zoom = 100
     end
-    object memMostrarRegistro2: TMemo
-      Left = 351
-      Top = 40
-      Width = 249
+    object rdtMostrarRegistro2: TRichEdit
+      Left = 348
+      Top = 45
+      Width = 253
       Height = 289
-      ReadOnly = True
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 2
+      StyleElements = [seFont, seBorder]
+      Zoom = 100
     end
   end
 end

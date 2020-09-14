@@ -12,10 +12,10 @@ type
     Label1: TLabel;
     lblRegistro1Comparacao: TLabel;
     lblRegistro2Comparacao: TLabel;
-    Button1: TButton;
-    memMostrarRegistro1: TMemo;
-    memMostrarRegistro2: TMemo;
-    procedure Button1Click(Sender: TObject);
+    btnVoltar: TButton;
+    rdtMostrarRegistro1: TRichEdit;
+    rdtMostrarRegistro2: TRichEdit;
+    procedure btnVoltarClick(Sender: TObject);
     procedure exibirTodosOsDetalhes(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -35,17 +35,17 @@ implementation
 uses uComparar;
 
 
-procedure TfrmComparacoes.Button1Click(Sender: TObject);
+procedure TfrmComparacoes.btnVoltarClick(Sender: TObject);
 begin
   Close;
 end;
 procedure TfrmComparacoes.exibirTodosOsDetalhes(Sender: TObject);
 begin
-  memMostrarRegistro1.Clear;
-  memMostrarRegistro2.Clear;
+  rdtMostrarRegistro1.Clear;
+  rdtMostrarRegistro2.Clear;
 
   arquivoIni := TIniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+frmComparar.cbxRegistro1.Text+'.ini');
-  With memMostrarRegistro1.Lines do
+  With rdtMostrarRegistro1.Lines do
   begin
     Add('');
     Add('');
@@ -68,10 +68,13 @@ begin
     Add('Data Da Consulta: '+arquivoIni.ReadString(frmComparar.cbxRegistro1.Text,'Data da Consulta','Erro'));
     arquivoIni.Free;
     lblRegistro1Comparacao.Caption:= frmComparar.cbxRegistro1.Text;
+    rdtMostrarRegistro1.SelectAll;
+    rdtMostrarRegistro1.SelAttributes.Style:= [fsBold];
+    rdtMostrarRegistro1.SelAttributes.Color:=clGreen;
   end;
 
   arquivoIni := TiniFile.Create(Tpath.GetDocumentsPath+'\ConsultaFIPE\'+frmComparar.cbxRegistro2.Text+'.ini');
-  With memMostrarRegistro2.Lines do
+  With rdtMostrarRegistro2.Lines do
   begin
     Add('');
     Add('');
@@ -94,6 +97,9 @@ begin
     Add('Data Da Consulta: '+arquivoIni.ReadString(frmComparar.cbxRegistro2.Text,'Data da Consulta','Erro'));
     arquivoIni.Free;
     lblRegistro2Comparacao.Caption:= frmComparar.cbxRegistro2.Text;
+    rdtMostrarRegistro2.SelectAll;
+    rdtMostrarRegistro2.SelAttributes.Style:= [fsBold];
+    rdtMostrarRegistro2.SelAttributes.Color:= clBlue;
   end;
 end;
 
