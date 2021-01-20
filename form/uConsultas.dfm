@@ -304,6 +304,7 @@ object frmConsultas: TfrmConsultas
     Dataset = FDMemTable1
     FieldDefs = <>
     ResponseJSON = RESTResponse1
+    NestedElements = True
     Left = 120
     Top = 264
   end
